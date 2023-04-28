@@ -20,14 +20,7 @@ We highly appreciate you sending us a postcard from your hometown, mentioning wh
 You can install the package via composer:
 
 ```bash
-composer require spatie/laravel-blade-paths
-```
-
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="laravel-blade-paths-migrations"
-php artisan migrate
+composer require-dev spatie/laravel-blade-paths
 ```
 
 You can publish the config file with:
@@ -43,18 +36,8 @@ return [
 ];
 ```
 
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="laravel-blade-paths-views"
-```
-
 ## Usage
-
-```php
-$bladePaths = new Spatie\BladePaths();
-echo $bladePaths->echoPhrase('Hello, Spatie!');
-```
+WIP
 
 ## Testing
 
