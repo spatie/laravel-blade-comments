@@ -20,6 +20,13 @@ class BladePathsServiceProvider extends PackageServiceProvider
 
     public function packageBooted()
     {
+        $this->addCommentsForIncludes();
+        $this->addCommentsToLayouts();
+        $this->addCommentsToLivewireTemplates();
+    }
+
+    protected function addCommentsForIncludes(): void
+    {
         Blade::directive('include', function ($expression) {
             $bladeCompiler = app(BladeCompiler::class);
 
@@ -31,30 +38,36 @@ class BladePathsServiceProvider extends PackageServiceProvider
 
             return $startComment . $compiled . $endComment;
         });
+    }
 
+    protected function addCommentsToLayouts(): void
+    {
         Blade::directive('extends', function ($expression) {
             $bladeCompiler = app(BladeCompiler::class);
 
             $compiled = invade($bladeCompiler)->compileExtends($expression);
 
             $template = trim($expression, "'");
-            $startComment = "<!-- Blade View Extends: {$template} -->\n";
+            $startComment = "<!-- Extended Layout: {$template} -->\n";
 
             return $startComment . $compiled;
         });
+    }
 
-//        Livewire::listen('component.dehydrate.initial', function ($component, $response) {
-//            if (! $html = data_get($response, 'effects.html')) return;
-//
-//            $componentName = get_class($component) . ' (' . $component->getName() . ')';
-//
-//            $startComment = "<!-- Start Livewire Component {$componentName} -->";
-//            $pos = strpos($html, '>') + 1;
-//            $newHtml = substr_replace($html, " {$startComment}", $pos, 0);
-//
-//            $endComment = "<!-- End of Livewire Component {$componentName} -->";
-//
-//            data_set($response, 'effects.html', $newHtml . $endComment);
-//        });
+    protected function addCommentsToLivewireTemplates(): void
+    {
+        Livewire::listen('component.dehydrate.initial', function ($component, $response) {
+            if (!$html = data_get($response, 'effects.html')) return;
+
+            $componentName = get_class($component) . ' (' . $component->getName() . ')';
+
+            $startComment = "<!-- Start Livewire Component {$componentName} -->";
+            $pos = strpos($html, '>') + 1;
+            $newHtml = substr_replace($html, " {$startComment}", $pos, 0);
+
+            $endComment = "<!-- End of Livewire Component {$componentName} -->";
+
+            data_set($response, 'effects.html', $newHtml . $endComment);
+        });
     }
 }
