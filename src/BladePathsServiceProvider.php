@@ -4,10 +4,8 @@ namespace Spatie\BladePaths;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\View\Compilers\BladeCompiler;
-use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Spatie\BladePaths\Commands\BladePathsCommand;
 
 class BladePathsServiceProvider extends PackageServiceProvider
 {
@@ -56,7 +54,9 @@ class BladePathsServiceProvider extends PackageServiceProvider
 
     protected function addCommentsToLivewireTemplates(): void
     {
-        Livewire::listen('component.dehydrate.initial', function ($component, $response) {
+        if (!class_exists(Livewire\Livewire::class)) return;
+
+        Livewire\Livewire::listen('component.dehydrate.initial', function ($component, $response) {
             if (!$html = data_get($response, 'effects.html')) return;
 
             $componentName = get_class($component) . ' (' . $component->getName() . ')';
