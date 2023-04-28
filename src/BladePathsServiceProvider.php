@@ -34,7 +34,7 @@ class BladePathsServiceProvider extends PackageServiceProvider
             $startComment = "<!-- Start of partial: {$partial} -->\n";
             $endComment = "\n<!-- End of partial: {$partial} -->";
 
-            return $startComment . $compiled . $endComment;
+            return $startComment.$compiled.$endComment;
         });
     }
 
@@ -48,18 +48,22 @@ class BladePathsServiceProvider extends PackageServiceProvider
             $template = trim($expression, "'");
             $startComment = "<!-- Extended Layout: {$template} -->\n";
 
-            return $startComment . $compiled;
+            return $startComment.$compiled;
         });
     }
 
     protected function addCommentsToLivewireTemplates(): void
     {
-        if (!class_exists(Livewire\Livewire::class)) return;
+        if (! class_exists(Livewire\Livewire::class)) {
+            return;
+        }
 
         Livewire\Livewire::listen('component.dehydrate.initial', function ($component, $response) {
-            if (!$html = data_get($response, 'effects.html')) return;
+            if (! $html = data_get($response, 'effects.html')) {
+                return;
+            }
 
-            $componentName = get_class($component) . ' (' . $component->getName() . ')';
+            $componentName = get_class($component).' ('.$component->getName().')';
 
             $startComment = "<!-- Start Livewire Component {$componentName} -->";
             $pos = strpos($html, '>') + 1;
@@ -67,7 +71,7 @@ class BladePathsServiceProvider extends PackageServiceProvider
 
             $endComment = "<!-- End of Livewire Component {$componentName} -->";
 
-            data_set($response, 'effects.html', $newHtml . $endComment);
+            data_set($response, 'effects.html', $newHtml.$endComment);
         });
     }
 }
