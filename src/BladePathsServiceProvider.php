@@ -19,6 +19,10 @@ class BladePathsServiceProvider extends PackageServiceProvider
 
     public function packageBooted()
     {
+        if (! config('blade-paths::enable')) {
+            return;
+        }
+
         collect(config('blade-paths::renderers'))
             ->map(fn(string $rendererClass) => app($rendererClass))
             ->each(function (object $renderer) {
