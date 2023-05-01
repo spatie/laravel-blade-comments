@@ -28,14 +28,13 @@ class LivewireComponentRenderer implements Renderer
 
     protected function render(string $renderedHtml, string $componentName): string
     {
-        $startComment = "<!-- Start Livewire Component {$componentName} -->";
-        $endComment = "<!-- End of Livewire Component {$componentName} -->";
+        $startComment = PHP_EOL . "<!-- Start Livewire Component {$componentName} -->" . PHP_EOL;
+        $endComment = PHP_EOL . "<!-- End of Livewire Component {$componentName} -->" . PHP_EOL;
 
         $startPosition = strpos($renderedHtml, '>') + 1;
 
-        $updatedHtml = substr_replace($renderedHtml, " {$startComment}", $startPosition, 0).$endComment;
+        $startCommentAndContent = substr_replace($renderedHtml, " {$startComment}", $startPosition, 0);
 
-        return $updatedHtml;
-
+        return "{$startCommentAndContent}{$endComment}";
     }
 }

@@ -3,9 +3,11 @@
 namespace Spatie\BladePaths\Tests;
 
 use Illuminate\Support\Facades\View;
+use Livewire\Livewire;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\BladePaths\BladePathsServiceProvider;
+use Spatie\BladePaths\Tests\TestSupport\Livewire\TestLivewireComponent;
 
 class TestCase extends Orchestra
 {
@@ -14,8 +16,6 @@ class TestCase extends Orchestra
         parent::setUp();
 
         $this->artisan('view:clear');
-
-        View::addLocation(__DIR__.'/TestSupport/views');
     }
 
     protected function getPackageProviders($app)
@@ -26,10 +26,37 @@ class TestCase extends Orchestra
         ];
     }
 
+    public function getEnvironmentSetUp($app)
+    {
+        config()->set('app.key', '6rE9Nz59bGRbeMATftriyQjrpF7DcOQm');
+
+        View::addLocation(__DIR__.'/TestSupport/views');
+
+        $this->registerLivewireComponents();
+    }
+
+    protected function registerLivewireComponents(): self
+    {
+        Livewire::component('test-component', TestLivewireComponent::class);
+
+        return $this;
+    }
+
     public function rerunServiceProvider()
     {
         $provider = new BladePathsServiceProvider($this->app);
 
         $provider->packageBooted();
+    }
+
+    public function preparedLivewireHtmlForSnapshot(string $html): string
+    {
+        // remove wire:id and wire:initial-data attributes
+        $html = preg_replace('/<div\s+(?=.*?\bwire:id\b)(?=.*?\bwire:initial-data\b)(.*?)\bwire:id\b\s*=\s*"[^"]*"\s*\bwire:initial-data\b\s*=\s*"[^"]*"\s*(.*?)>/s', '<div $1$2>', $html);
+
+        // remove wire:end random string
+        $html = preg_replace('/wire-end:[^ ]+\s*/', '', $html);
+
+        return $html;
     }
 }
