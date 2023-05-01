@@ -4,7 +4,7 @@ namespace Spatie\BladePaths\Renderers;
 
 use Livewire\Livewire;
 
-class LivewireViewsRenderer implements Renderer
+class LivewireComponentRenderer implements Renderer
 {
     public function register(): void
     {
