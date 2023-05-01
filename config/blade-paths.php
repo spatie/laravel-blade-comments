@@ -1,6 +1,5 @@
 <?php
 
-
 return [
     'enable' => env('APP_ENV') === 'local',
 
@@ -8,5 +7,5 @@ return [
         Spatie\BladePaths\Renderers\BladeIncludeRenderer::class,
         Spatie\BladePaths\Renderers\BladeExtendsRenderer::class,
         Spatie\BladePaths\Renderers\LivewireViewsRenderer::class,
-    ]
+    ],
 ];

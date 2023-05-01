@@ -20,13 +20,13 @@ class BladeExtendsRenderer implements Renderer
             $templatePath = trim($expression, "'");
             $startComment = "<!-- Extended Layout: {$templatePath} -->\n";
 
-            return $startComment . $compiledViewContent;
+            return $startComment.$compiledViewContent;
         });
     }
 
     protected function render(string $compiledViewContent, string $templatePath): string
     {
-        $startComment = "<!-- Extended Layout: {$templatePath} -->" . PHP_EOL;
+        $startComment = "<!-- Extended Layout: {$templatePath} -->".PHP_EOL;
 
         return "{$startComment}{$compiledViewContent}";
     }
