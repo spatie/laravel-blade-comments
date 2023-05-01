@@ -14,19 +14,17 @@ class BladeExtendsRenderer implements Renderer
     public function register(): void
     {
         Blade::directive('extends', function ($expression) {
-
             $compiledViewContent = invade($this->compiler)->compileExtends($expression);
 
             $templatePath = trim($expression, "'");
-            $startComment = "<!-- Extended Layout: {$templatePath} -->\n";
 
-            return $startComment.$compiledViewContent;
+            return $this->render($compiledViewContent, $templatePath);
         });
     }
 
     protected function render(string $compiledViewContent, string $templatePath): string
     {
-        $startComment = "<!-- Extended Layout: {$templatePath} -->".PHP_EOL;
+        $startComment = "<!-- Start extends: {$templatePath} -->" . PHP_EOL;
 
         return "{$startComment}{$compiledViewContent}";
     }

@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'enable' => env('APP_ENV') === 'local',
+    'enable' => env('APP_ENV') !== 'production',
 
     'renderers' => [
         Spatie\BladePaths\Renderers\BladeIncludeRenderer::class,
