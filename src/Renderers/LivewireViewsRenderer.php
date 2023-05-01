@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Spatie\BladePaths\Renderers;
 
 use Livewire\Livewire;
@@ -14,14 +13,14 @@ class LivewireViewsRenderer implements Renderer
         }
 
         Livewire::listen('component.dehydrate.initial', function ($component, $response) {
-            if (!$renderedHtml = data_get($response, 'effects.html')) {
+            if (! $renderedHtml = data_get($response, 'effects.html')) {
                 return;
             }
 
             $componentClassName = get_class($component);
             $componentName = "{$componentClassName} ({$component->getName()})";
 
-            $updatedHtml =$this->render($renderedHtml, $componentName);
+            $updatedHtml = $this->render($renderedHtml, $componentName);
 
             data_set($response, 'effects.html', $updatedHtml);
         });
@@ -34,7 +33,7 @@ class LivewireViewsRenderer implements Renderer
 
         $startPosition = strpos($renderedHtml, '>') + 1;
 
-        $updatedHtml = substr_replace($renderedHtml, " {$startComment}", $startPosition, 0) . $endComment;
+        $updatedHtml = substr_replace($renderedHtml, " {$startComment}", $startPosition, 0).$endComment;
 
         return $updatedHtml;
 

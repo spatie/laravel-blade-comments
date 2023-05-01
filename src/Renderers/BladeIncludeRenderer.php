@@ -24,8 +24,8 @@ class BladeIncludeRenderer implements Renderer
 
     protected function render(string $compiledViewContent, string $viewPath): string
     {
-        $startComment = "<!-- Start of partial: {$viewPath} -->" . PHP_EOL;
-        $endComment = PHP_EOL . "<!-- End of partial: {$viewPath} -->";
+        $startComment = "<!-- Start of partial: {$viewPath} -->".PHP_EOL;
+        $endComment = PHP_EOL."<!-- End of partial: {$viewPath} -->";
 
         return "{$startComment}{$compiledViewContent}{$endComment}";
     }
