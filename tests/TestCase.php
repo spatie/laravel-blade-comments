@@ -23,4 +23,11 @@ class TestCase extends Orchestra
             BladePathsServiceProvider::class,
         ];
     }
+
+    public function rerunServiceProvider()
+    {
+        $provider = new BladePathsServiceProvider($this->app);
+
+        $provider->packageBooted();
+    }
 }
