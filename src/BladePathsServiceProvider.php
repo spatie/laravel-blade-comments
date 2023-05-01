@@ -22,13 +22,18 @@ class BladePathsServiceProvider extends PackageServiceProvider
             return;
         }
 
+        $this->registerRenderers();
+    }
+
+    protected function registerRenderers(): void
+    {
         collect(config('blade-paths.renderers'))
-            ->map(fn (string $rendererClass) => app($rendererClass))
+            ->map(fn(string $rendererClass) => app($rendererClass))
             ->each(function (object $renderer) {
-                if (! $renderer instanceof Renderer) {
+                if (!$renderer instanceof Renderer) {
                     throw InvalidRenderer::make($renderer);
                 }
             })
-            ->each(fn (Renderer $renderer) => $renderer->register());
+            ->each(fn(Renderer $renderer) => $renderer->register());
     }
 }
