@@ -3,6 +3,7 @@
 namespace Spatie\BladePaths\Tests;
 
 use Illuminate\Support\Facades\View;
+use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\BladePaths\BladePathsServiceProvider;
 
@@ -21,6 +22,7 @@ class TestCase extends Orchestra
     {
         return [
             BladePathsServiceProvider::class,
+            LivewireServiceProvider::class,
         ];
     }
 
