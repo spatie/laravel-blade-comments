@@ -2,11 +2,13 @@
 
 namespace Spatie\BladePaths\Tests;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
 use Livewire\Livewire;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\BladePaths\BladePathsServiceProvider;
+use Spatie\BladePaths\Tests\TestSupport\BladeComponents\TestBladeComponent;
 use Spatie\BladePaths\Tests\TestSupport\Livewire\TestLivewireComponent;
 
 class TestCase extends Orchestra
@@ -32,14 +34,8 @@ class TestCase extends Orchestra
 
         View::addLocation(__DIR__.'/TestSupport/views');
 
-        $this->registerLivewireComponents();
-    }
-
-    protected function registerLivewireComponents(): self
-    {
+        Blade::component('test-component', TestBladeComponent::class);
         Livewire::component('test-component', TestLivewireComponent::class);
-
-        return $this;
     }
 
     public function rerunServiceProvider()
