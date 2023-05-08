@@ -4,8 +4,6 @@ namespace Spatie\BladePaths\Renderers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\View\Compilers\BladeCompiler;
-use Illuminate\View\Engines\CompilerEngine;
-use Spatie\BladePaths\CustomBladeCompiler;
 
 class BladeComponentRenderer implements Renderer
 {
