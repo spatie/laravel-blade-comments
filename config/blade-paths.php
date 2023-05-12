@@ -9,4 +9,8 @@ return [
         Spatie\BladePaths\Renderers\BladeComponentRenderer::class,
         Spatie\BladePaths\Renderers\LivewireComponentRenderer::class,
     ],
+
+    'middleware' => [
+        Spatie\BladePaths\Middleware\AddCurrentViewComment::class,
+    ]
 ];

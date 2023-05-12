@@ -25,7 +25,7 @@ class BladeExtendsRenderer implements Renderer
 
     protected function render(string $compiledViewContent, string $templatePath): string
     {
-        $startComment = "<!-- Start extends: {$templatePath} -->".PHP_EOL;
+        $startComment = "<!-- View extends: {$templatePath} -->".PHP_EOL;
 
         return "{$startComment}{$compiledViewContent}";
     }
