@@ -1,5 +1,5 @@
 This is the start of the page
 
-@include('include.include')
+@includeIf('includes.includeIf.includeIf')
 
 This is the end of the page
