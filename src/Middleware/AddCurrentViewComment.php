@@ -4,7 +4,6 @@ namespace Spatie\BladePaths\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -21,8 +20,8 @@ class AddCurrentViewComment
         $viewName = $response->original->name();
 
         $response->setContent(
-            $this->getViewComment($viewName) .
-            $this->getRouteComment($request) .
+            $this->getViewComment($viewName).
+            $this->getRouteComment($request).
             $response->getContent()
         );
 
@@ -39,7 +38,7 @@ class AddCurrentViewComment
         $comment = '';
         $routeAction = $request->route()->getAction();
 
-        if (!isset($routeAction['controller'])) {
+        if (! isset($routeAction['controller'])) {
             return $comment;
         }
 
@@ -50,7 +49,7 @@ class AddCurrentViewComment
             $comment .= "({$routeAction['as']}) ";
         }
 
-        $comment .= "-->".PHP_EOL;
+        $comment .= '-->'.PHP_EOL;
 
         return $comment;
     }

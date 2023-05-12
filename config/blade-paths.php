@@ -12,5 +12,5 @@ return [
 
     'middleware' => [
         Spatie\BladePaths\Middleware\AddCurrentViewComment::class,
-    ]
+    ],
 ];
