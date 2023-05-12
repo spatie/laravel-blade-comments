@@ -4,9 +4,12 @@ namespace Spatie\BladePaths\Renderers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\View\Compilers\BladeCompiler;
+use Spatie\BladePaths\Concerns\GetsPathFromDirectiveExpression;
 
 class BladeExtendsRenderer implements Renderer
 {
+    use GetsPathFromDirectiveExpression;
+
     public function __construct(protected BladeCompiler $compiler)
     {
     }
@@ -16,9 +19,7 @@ class BladeExtendsRenderer implements Renderer
         Blade::directive('extends', function ($expression) {
             $compiledViewContent = invade($this->compiler)->compileExtends($expression);
 
-            $templatePath = trim($expression, "'");
-
-            return $this->render($compiledViewContent, $templatePath);
+            return $this->render($compiledViewContent, $this->getPath($expression));
         });
     }
 
