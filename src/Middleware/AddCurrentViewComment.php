@@ -17,6 +17,10 @@ class AddCurrentViewComment
             return $response;
         }
 
+        if (gettype($response->original) !== 'object') {
+            return $response;
+        }
+
         $viewName = $response->original->name();
 
         $response->setContent(
