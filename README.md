@@ -5,7 +5,7 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/spatie/laravel-blade-paths/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/spatie/laravel-blade-paths/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-blade-paths.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-blade-paths)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+This package aims to help find your way in Laravel applications by injecting HTML comments in your rendered output. These comments allow you to discover which blade files, controllers or Livewire components are used by using your browsers developer tools (inspect element).
 
 ## Support us
 
@@ -33,6 +33,18 @@ This is the contents of the published config file:
 
 ```php
 return [
+    'enable' => env('APP_ENV') !== 'production',
+
+    'renderers' => [
+        Spatie\BladePaths\Renderers\BladeIncludeRenderer::class,
+        Spatie\BladePaths\Renderers\BladeExtendsRenderer::class,
+        Spatie\BladePaths\Renderers\BladeComponentRenderer::class,
+        Spatie\BladePaths\Renderers\LivewireComponentRenderer::class,
+    ],
+
+    'middleware' => [
+        Spatie\BladePaths\Middleware\AddCurrentViewComment::class,
+    ]
 ];
 ```
 
