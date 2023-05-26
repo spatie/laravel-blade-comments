@@ -9,28 +9,28 @@ class BladePathsPrecompiler
         $replacements = [
             [
                 'pattern' => "/@extends\([\'\"](.*?)['\"]\)/",
-                'replacement' => "<!-- View Extends: $1 -->$0",
+                'replacement' => '<!-- View Extends: $1 -->$0',
             ],
             [
                 'pattern' => "/@section\([\'\"](.*?)['\"]\)/",
-                'replacement' => "<!-- Start Section: $1 -->$0",
+                'replacement' => '<!-- Start Section: $1 -->$0',
             ],
             [
                 'pattern' => "/@include\([\'\"](.*?)['\"]\)/",
-                'replacement' => "<!-- Start Include: $1 -->$0<!-- End Include: $1 -->",
+                'replacement' => '<!-- Start Include: $1 -->$0<!-- End Include: $1 -->',
             ],
             [
                 'pattern' => "/@livewire\([\'\"](.*?)['\"]\)/",
-                'replacement' => "<!-- Start Livewire: $1 -->$0<!-- End Livewire: $1 -->",
+                'replacement' => '<!-- Start Livewire: $1 -->$0<!-- End Livewire: $1 -->',
             ],
             [
                 'pattern' => "/@component\([\'\"](.*?)[\'\"].*?\)/",
-                'replacement' => "<!-- Blade Component: $1 -->$0",
+                'replacement' => '<!-- Blade Component: $1 -->$0',
             ],
             [
-                'pattern' => "/@(endComponentClass|endcomponent)/",
-                'replacement' => "$0<!-- End Blade Component -->",
-            ]
+                'pattern' => '/@(endComponentClass|endcomponent)/',
+                'replacement' => '$0<!-- End Blade Component -->',
+            ],
         ];
 
         foreach ($replacements as $replacement) {
