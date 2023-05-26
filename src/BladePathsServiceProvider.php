@@ -3,8 +3,7 @@
 namespace Spatie\BladePaths;
 
 use Illuminate\Contracts\Http\Kernel;
-use Spatie\BladePaths\Exceptions\InvalidRenderer;
-use Spatie\BladePaths\Renderers\Renderer;
+use Illuminate\Support\Facades\Blade;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -17,26 +16,22 @@ class BladePathsServiceProvider extends PackageServiceProvider
             ->hasConfigFile();
     }
 
-    public function packageBooted()
+    public function packageBooted(): void
     {
         if (! config('blade-paths.enable')) {
             return;
         }
 
-        $this->registerRenderers();
         $this->registerMiddleware();
+        $this->registerPrecompilers();
     }
 
-    protected function registerRenderers(): void
+    protected function registerPrecompilers(): void
     {
-        collect(config('blade-paths.renderers'))
-            ->map(fn (string $rendererClass) => app($rendererClass))
-            ->each(function (object $renderer) {
-                if (! $renderer instanceof Renderer) {
-                    throw InvalidRenderer::make($renderer);
-                }
-            })
-            ->each(fn (Renderer $renderer) => $renderer->register());
+        collect(config('blade-paths.precompilers'))
+            ->each(function ($precompiler) {
+                Blade::precompiler(fn (string $string) => $precompiler::execute($string));
+            });
     }
 
     protected function registerMiddleware(): void
