@@ -23,23 +23,20 @@ You can install the package via composer:
 composer require-dev spatie/laravel-blade-paths
 ```
 
-You can publish the config file with:
+You can optionally publish the config file with:
 
 ```bash
 php artisan vendor:publish --tag="laravel-blade-paths-config"
 ```
 
-This is the contents of the published config file:
+This is the content of the published config file:
 
 ```php
 return [
     'enable' => env('APP_ENV') !== 'production',
 
-    'renderers' => [
-        Spatie\BladePaths\Renderers\BladeIncludeRenderer::class,
-        Spatie\BladePaths\Renderers\BladeExtendsRenderer::class,
-        Spatie\BladePaths\Renderers\BladeComponentRenderer::class,
-        Spatie\BladePaths\Renderers\LivewireComponentRenderer::class,
+    'precompilers' => [
+        Spatie\BladePaths\Precompilers\BladePathsPrecompiler::class,
     ],
 
     'middleware' => [
@@ -48,8 +45,11 @@ return [
 ];
 ```
 
-## Usage
-WIP
+## Extending
+The packages uses precompilers to add HTML comments to your HTML output by using Regex to find any Blade directives.
+If you want to add support for custom Blade directives, you can create your own precompiler class and add it to the `precompilers` array in the config file. Take a look at the package's `BladePathsPrecompiler` class to see how it works.
+
+```php
 
 ## Testing
 
