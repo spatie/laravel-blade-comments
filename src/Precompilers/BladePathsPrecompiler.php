@@ -1,8 +1,8 @@
 <?php
 
-namespace Spatie\BladePaths\Precompiler;
+namespace Spatie\BladePaths\Precompilers;
 
-class BladePathsPrecompiler
+class BladePathsPrecompiler implements Precompiler
 {
     public static function execute(string $string): string
     {

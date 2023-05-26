@@ -8,6 +8,6 @@ return [
     ],
 
     'precompilers' => [
-        Spatie\BladePaths\Precompiler\BladePathsPrecompiler::class,
+        Spatie\BladePaths\Precompilers\BladePathsPrecompiler::class,
     ],
 ];
