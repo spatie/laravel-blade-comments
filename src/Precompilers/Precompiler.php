@@ -2,6 +2,7 @@
 
 namespace Spatie\BladePaths\Precompilers;
 
-interface Precompiler {
+interface Precompiler
+{
     public static function execute(string $string): string;
 }
