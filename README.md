@@ -36,7 +36,7 @@ return [
     'enable' => env('APP_ENV') !== 'production',
 
     'precompilers' => [
-        Spatie\BladePaths\Precompilers\BladePathsPrecompiler::class,
+        Spatie\BladePaths\Precompilers\BladeCommentsPrecompiler::class,
     ],
 
     'middleware' => [
