@@ -4,32 +4,51 @@ namespace Spatie\BladePaths\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Str;
-use Symfony\Component\HttpFoundation\Response;
 
-class AddCurrentViewComment
+class AddDebugInfo
 {
     public function handle(Request $request, Closure $next): Response
     {
         $response = $next($request);
 
-        if (! Str::contains($response->headers->get('content-type'), 'text/html')) {
+        if (! $this->shouldAddViewComment($response)) {
             return $response;
+        }
+
+        $newContent = $this->newResponseContent($request, $response);
+
+        $response->setContent($newContent);
+
+        return $response;
+    }
+
+    protected function shouldAddViewComment(Response $response): bool
+    {
+        if (! Str::contains($response->headers->get('content-type'), 'text/html')) {
+
+            return false;
         }
 
         if (gettype($response->original) !== 'object') {
-            return $response;
+            return false;
         }
 
+        return true;
+    }
+
+    private function newResponseContent(Request $request, mixed $response): string
+    {
         $viewName = $response->original->name();
 
-        $response->setContent(
-            $this->getViewComment($viewName).
-            $this->getRouteComment($request).
-            $response->getContent()
-        );
+        $viewComment = $this->getViewComment($viewName);
 
-        return $response;
+        $routeComment = $this->getRouteComment($request);
+
+        $originalResponseContent = $response->getContent();
+
+        return "{$viewComment}{$routeComment}{$originalResponseContent}";
     }
 
     protected function getViewComment(string $templatePath): string
@@ -47,6 +66,7 @@ class AddCurrentViewComment
         }
 
         $route = $routeAction['controller'];
+
         $comment .= "<!-- Route: {$route} ";
 
         if (isset($routeAction['as'])) {

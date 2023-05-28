@@ -4,7 +4,7 @@ return [
     'enable' => env('APP_ENV') !== 'production',
 
     'middleware' => [
-        Spatie\BladePaths\Middleware\AddCurrentViewComment::class,
+        Spatie\BladePaths\Middleware\AddDebugInfo::class,
     ],
 
     'precompilers' => [

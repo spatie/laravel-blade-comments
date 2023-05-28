@@ -40,7 +40,7 @@ return [
     ],
 
     'middleware' => [
-        Spatie\BladePaths\Middleware\AddCurrentViewComment::class,
+        Spatie\BladePaths\Middleware\AddDebugInfoToResponse::class,
     ]
 ];
 ```
