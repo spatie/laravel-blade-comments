@@ -12,7 +12,7 @@ it('will add the route to the response', function () {
         ->content();
 
     $expectedStart = '<!-- View: includes.include.page -->'
-        . PHP_EOL . '<!-- Route: \Illuminate\Routing\ViewController -->';
+        .PHP_EOL.'<!-- Route: \Illuminate\Routing\ViewController -->';
 
     expect($response)->toStartWith($expectedStart);
 });
