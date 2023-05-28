@@ -6,7 +6,22 @@ class BladePathsPrecompiler implements Precompiler
 {
     public static function execute(string $string): string
     {
-        $replacements = [
+        $replacements = self::replacements();
+
+        foreach ($replacements as $replacement) {
+            $string = preg_replace(
+                $replacement['pattern'],
+                $replacement['replacement'],
+                $string
+            );
+        }
+
+        return $string;
+    }
+
+    protected static function replacements(): array
+    {
+        return [
             [
                 'pattern' => "/@extends\([\'\"](.*?)['\"]\)/",
                 'replacement' => '<!-- View Extends: $1 -->$0',
@@ -32,11 +47,5 @@ class BladePathsPrecompiler implements Precompiler
                 'replacement' => '$0<!-- End Blade Component -->',
             ],
         ];
-
-        foreach ($replacements as $replacement) {
-            $string = preg_replace($replacement['pattern'], $replacement['replacement'], $string);
-        }
-
-        return $string;
     }
 }

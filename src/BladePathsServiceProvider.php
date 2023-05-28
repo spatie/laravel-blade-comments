@@ -22,19 +22,22 @@ class BladePathsServiceProvider extends PackageServiceProvider
             return;
         }
 
-        $this->registerMiddleware();
-        $this->registerPrecompilers();
+        $this
+            ->registerMiddleware()
+            ->registerPrecompilers();
     }
 
-    protected function registerPrecompilers(): void
+    protected function registerPrecompilers(): self
     {
         collect(config('blade-paths.precompilers'))
             ->each(function ($precompiler) {
                 Blade::precompiler(fn (string $string) => $precompiler::execute($string));
             });
+
+        return $this;
     }
 
-    protected function registerMiddleware(): void
+    protected function registerMiddleware(): self
     {
         $kernel = resolve(Kernel::class);
 
@@ -42,5 +45,7 @@ class BladePathsServiceProvider extends PackageServiceProvider
             ->each(function ($middleware) use ($kernel) {
                 $kernel->appendMiddlewareToGroup('web', $middleware);
             });
+
+        return $this;
     }
 }
