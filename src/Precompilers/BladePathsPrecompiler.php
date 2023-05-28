@@ -35,8 +35,20 @@ class BladePathsPrecompiler implements Precompiler
                 'replacement' => '<!-- Start Include: $1 -->$0<!-- End Include: $1 -->',
             ],
             [
+                'pattern' => "/@includeIf\([\'\"](.*?)['\"]\)/",
+                'replacement' => '<!-- Start Include: $1 -->$0<!-- End Include: $1 -->',
+            ],
+            [
+                'pattern' => "/@includeWhen\([\'\"](.*?)['\"]\)/",
+                'replacement' => '<!-- Start Include: $1 -->$0<!-- End Include: $1 -->',
+            ],
+            [
                 'pattern' => "/@livewire\([\'\"](.*?)['\"]\)/",
-                'replacement' => '<!-- Start Livewire: $1 -->$0<!-- End Livewire: $1 -->',
+                'replacement' => '<!-- Start Livewire : $1 -->$0<!-- End Livewire component: $1 -->',
+            ],
+            [
+                'pattern' => "/(<livewire:(\w+)[^>]*\s*\/?>)/",
+                'replacement' => '<!-- Start Livewire component: $2 -->$1<!-- End Livewire component: $2 -->',
             ],
             [
                 'pattern' => "/@component\([\'\"](.*?)[\'\"].*?\)/",
