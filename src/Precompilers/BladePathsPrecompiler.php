@@ -4,9 +4,11 @@ namespace Spatie\BladePaths\Precompilers;
 
 class BladePathsPrecompiler implements Precompiler
 {
+    private static $customReplacements = [];
+
     public static function execute(string $string): string
     {
-        $replacements = self::replacements();
+        $replacements = array_merge(self::replacements(), self::$customReplacements);
 
         foreach ($replacements as $replacement) {
             $string = preg_replace(
@@ -17,6 +19,13 @@ class BladePathsPrecompiler implements Precompiler
         }
 
         return $string;
+    }
+    public static function addReplacement(string $pattern, string $replacement)
+    {
+        self::$customReplacements[] = [
+            'pattern' => $pattern,
+            'replacement' => $replacement,
+        ];
     }
 
     protected static function replacements(): array

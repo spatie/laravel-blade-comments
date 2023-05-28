@@ -7,3 +7,4 @@ it('will add paths for blade components', function () {
 
     assertMatchesHtmlSnapshot($renderedView);
 });
+
