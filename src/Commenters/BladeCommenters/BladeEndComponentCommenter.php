@@ -2,7 +2,7 @@
 
 namespace Spatie\BladeComments\Commenters\BladeCommenters;
 
-class BlandeEndComponentCommenter implements BladeCommenter
+class BladeEndComponentCommenter implements BladeCommenter
 {
     public function pattern(): string
     {
