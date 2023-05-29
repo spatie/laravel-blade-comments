@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\BladePaths\Tests\TestSupport\Livewire;
+namespace Spatie\BladeComments\Tests\TestSupport\Livewire;
 
 use Livewire\Component;
 

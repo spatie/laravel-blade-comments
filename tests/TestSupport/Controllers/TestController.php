@@ -1,3 +1,3 @@
 <?php
 
-namespace Spatie\BladePaths\Tests\TestSupport\Controllers;
+namespace Spatie\BladeComments\Tests\TestSupport\Controllers;

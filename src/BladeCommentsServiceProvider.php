@@ -1,24 +1,24 @@
 <?php
 
-namespace Spatie\BladePaths;
+namespace Spatie\BladeComments;
 
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\Facades\Blade;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class BladePathsServiceProvider extends PackageServiceProvider
+class BladeCommentsServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
         $package
-            ->name('laravel-blade-paths')
+            ->name('laravel-blade-comments')
             ->hasConfigFile();
     }
 
     public function packageBooted(): void
     {
-        if (! config('blade-paths.enable')) {
+        if (! config('blade-comments.enable')) {
             return;
         }
 
@@ -29,7 +29,7 @@ class BladePathsServiceProvider extends PackageServiceProvider
 
     protected function registerPrecompilers(): self
     {
-        collect(config('blade-paths.precompilers'))
+        collect(config('blade-comments.precompilers'))
             ->each(function ($precompiler) {
                 Blade::precompiler(fn (string $string) => $precompiler::execute($string));
             });
@@ -41,7 +41,7 @@ class BladePathsServiceProvider extends PackageServiceProvider
     {
         $kernel = resolve(Kernel::class);
 
-        collect(config('blade-paths.middleware'))
+        collect(config('blade-comments.middleware'))
             ->each(function ($middleware) use ($kernel) {
                 $kernel->appendMiddlewareToGroup('web', $middleware);
             });

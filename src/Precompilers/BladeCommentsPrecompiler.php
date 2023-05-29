@@ -1,8 +1,8 @@
 <?php
 
-namespace Spatie\BladePaths\Precompilers;
+namespace Spatie\BladeComments\Precompilers;
 
-use Spatie\BladePaths\Commenters\BladeCommenters\BladeCommenter;
+use Spatie\BladeComments\Commenters\BladeCommenters\BladeCommenter;
 
 class BladeCommentsPrecompiler implements Precompiler
 {
@@ -24,7 +24,7 @@ class BladeCommentsPrecompiler implements Precompiler
      */
     protected static function commenters(): array
     {
-        return collect(config('blade-paths.blade_commenters'))
+        return collect(config('blade-comments.blade_commenters'))
             ->map(fn (string $class) => app($class))
             ->toArray();
     }

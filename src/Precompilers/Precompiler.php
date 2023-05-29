@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\BladePaths\Precompilers;
+namespace Spatie\BladeComments\Precompilers;
 
 interface Precompiler
 {

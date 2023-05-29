@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\BladePaths\Tests\TestSupport\BladeComponents;
+namespace Spatie\BladeComments\Tests\TestSupport\BladeComponents;
 
 use Illuminate\View\Component;
 

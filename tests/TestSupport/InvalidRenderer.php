@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\BladePaths\Tests\TestSupport;
+namespace Spatie\BladeComments\Tests\TestSupport;
 
 class InvalidRenderer
 {

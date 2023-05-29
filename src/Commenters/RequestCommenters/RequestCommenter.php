@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\BladePaths\Commenters\RequestCommenters;
+namespace Spatie\BladeComments\Commenters\RequestCommenters;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;

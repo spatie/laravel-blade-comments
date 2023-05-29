@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\BladePaths\Commenters\BladeCommenters;
+namespace Spatie\BladeComments\Commenters\BladeCommenters;
 
 class IncludeWhenCommenter implements BladeCommenter
 {

@@ -1,15 +1,15 @@
 <?php
 
-namespace Spatie\BladePaths\Tests;
+namespace Spatie\BladeComments\Tests;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
 use Livewire\Livewire;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Spatie\BladePaths\BladePathsServiceProvider;
-use Spatie\BladePaths\Tests\TestSupport\BladeComponents\TestBladeComponent;
-use Spatie\BladePaths\Tests\TestSupport\Livewire\TestLivewireComponent;
+use Spatie\BladeComments\BladeCommentsServiceProvider;
+use Spatie\BladeComments\Tests\TestSupport\BladeComponents\TestBladeComponent;
+use Spatie\BladeComments\Tests\TestSupport\Livewire\TestLivewireComponent;
 
 class TestCase extends Orchestra
 {
@@ -23,7 +23,7 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
-            BladePathsServiceProvider::class,
+            BladeCommentsServiceProvider::class,
             LivewireServiceProvider::class,
         ];
     }
@@ -40,7 +40,7 @@ class TestCase extends Orchestra
 
     public function rerunServiceProvider()
     {
-        $provider = new BladePathsServiceProvider($this->app);
+        $provider = new BladeCommentsServiceProvider($this->app);
 
         $provider->packageBooted();
     }

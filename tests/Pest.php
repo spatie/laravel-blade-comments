@@ -1,5 +1,5 @@
 <?php
 
-use Spatie\BladePaths\Tests\TestCase;
+use Spatie\BladeComments\Tests\TestCase;
 
 uses(TestCase::class)->in(__DIR__);

@@ -1,12 +1,12 @@
 <?php
 
-namespace Spatie\BladePaths\Middleware;
+namespace Spatie\BladeComments\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
-use Spatie\BladePaths\Commenters\RequestCommenters\RequestCommenter;
+use Spatie\BladeComments\Commenters\RequestCommenters\RequestCommenter;
 
 class AddRequestComments
 {
@@ -42,7 +42,7 @@ class AddRequestComments
     protected function newResponseContent(Request $request, Response $response): string
     {
 
-        $comments = collect(config('blade-paths.request_commenters'))
+        $comments = collect(config('blade-comments.request_commenters'))
             ->map(fn (string $class) => app($class))
             ->map(fn (RequestCommenter $commenter) => $commenter->comment($request, $response))
             ->filter()

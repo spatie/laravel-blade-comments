@@ -1,12 +1,12 @@
 {
-    "name": "spatie/laravel-blade-paths",
+    "name": "spatie/laravel-blade-comments",
     "description": " Show Blade paths in your rendered output ",
     "keywords": [
         "spatie",
         "laravel",
-        "laravel-blade-paths"
+        "laravel-blade-comments"
     ],
-    "homepage": "https://github.com/spatie/laravel-blade-paths",
+    "homepage": "https://github.com/spatie/laravel-blade-comments",
     "license": "MIT",
     "authors": [
         {
@@ -40,13 +40,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Spatie\\BladePaths\\": "src/",
-            "Spatie\\BladePaths\\Database\\Factories\\": "database/factories/"
+            "Spatie\\BladeComments\\": "src/",
+            "Spatie\\BladeComments\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Spatie\\BladePaths\\Tests\\": "tests/"
+            "Spatie\\BladeComments\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -66,7 +66,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Spatie\\BladePaths\\BladePathsServiceProvider"
+                "Spatie\\BladeComments\\BladeCommentsServiceProvider"
             ]
         }
     },
