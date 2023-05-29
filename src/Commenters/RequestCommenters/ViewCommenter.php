@@ -3,8 +3,8 @@
 namespace Spatie\BladeComments\Commenters\RequestCommenters;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response as LaravelResponse;
 use Symfony\Component\HttpFoundation\Response;
-use \Illuminate\Http\Response as LaravelResponse;
 
 class ViewCommenter implements RequestCommenter
 {
