@@ -41,7 +41,6 @@ class AddRequestComments
 
     protected function newResponseContent(Request $request, Response $response): string
     {
-
         $comments = collect(config('blade-comments.request_commenters'))
             ->map(fn (string $class) => app($class))
             ->map(fn (RequestCommenter $commenter) => $commenter->comment($request, $response))
