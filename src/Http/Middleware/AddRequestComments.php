@@ -5,10 +5,9 @@ namespace Spatie\BladeComments\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response as LaravelResponse;
-use Orchestra\Testbench\Contracts\Laravel;
-use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Str;
 use Spatie\BladeComments\Commenters\RequestCommenters\RequestCommenter;
+use Symfony\Component\HttpFoundation\Response;
 
 class AddRequestComments
 {
