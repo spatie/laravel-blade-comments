@@ -11,6 +11,6 @@ class LivewireDirectiveCommenter implements BladeCommenter
 
     public function replacement(): string
     {
-        return '<!-- Start Livewire : $1 -->$0<!-- End Livewire component: $1 -->';
+        return '<!-- Start Livewire component: $1 -->$0<!-- End Livewire component: $1 -->';
     }
 }

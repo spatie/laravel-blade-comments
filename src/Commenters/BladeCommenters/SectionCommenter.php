@@ -11,6 +11,6 @@ class SectionCommenter implements BladeCommenter
 
     public function replacement(): string
     {
-        return '<!-- Start Section: $1 -->$0';
+        return '<!-- Start section: $1 -->$0';
     }
 }

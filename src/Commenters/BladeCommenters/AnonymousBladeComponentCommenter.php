@@ -6,12 +6,11 @@ class AnonymousBladeComponentCommenter implements BladeCommenter
 {
     public function pattern(): string
     {
-        return "/(?<=@component\('Illuminate\\View\\AnonymousComponent',\s*')([^']+)'\s*,\s*\[([^\]]*)\]\s*\))/s";
+        return '/(##BEGIN-COMPONENT-CLASS##@component\(\'Illuminate\\\\View\\\\AnonymousComponent\',\s*\'([^\']+)\'[^\)]*\)[\s\S]*?@endComponentClass##END-COMPONENT-CLASS##)/';
     }
 
     public function replacement(): string
     {
-        return '<!-- Start anonymous Blade component $1 -->$0<!-- End anonymous Blade component $1 -->
-';
+        return '<!-- Start anonymous component: anonymous-blade-component.anonymous name: $2 -->$1<!-- End anonymous component: anonymous-blade-component.anonymous name: $2 -->';
     }
 }

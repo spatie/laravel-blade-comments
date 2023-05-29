@@ -11,6 +11,6 @@ class ExtendsCommenter implements BladeCommenter
 
     public function replacement(): string
     {
-        return '<!-- View Extends: $1 -->$0';
+        return '<!-- View extends: $1 -->$0';
     }
 }

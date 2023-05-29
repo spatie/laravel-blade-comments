@@ -11,6 +11,6 @@ class IncludeIfCommenter implements BladeCommenter
 
     public function replacement(): string
     {
-        return '<!-- Start Include: $1 -->$0<!-- End Include: $1 -->';
+        return '<!-- Start includeIf: $1 -->$0<!-- End includeIf: $1 -->';
     }
 }

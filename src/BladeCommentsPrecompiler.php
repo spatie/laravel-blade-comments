@@ -6,17 +6,17 @@ use Spatie\BladeComments\Commenters\BladeCommenters\BladeCommenter;
 
 class BladeCommentsPrecompiler
 {
-    public static function execute(string $string): string
+    public static function execute(string $bladeContent): string
     {
         foreach (self::commenters() as $commenter) {
-            $string = preg_replace(
+            $bladeContent = preg_replace(
                 $commenter->pattern(),
                 $commenter->replacement(),
-                $string,
+                $bladeContent,
             );
         }
 
-        return $string;
+        return $bladeContent;
     }
 
     /**
