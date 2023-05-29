@@ -11,6 +11,6 @@ class BladeComponentCommenter implements BladeCommenter
 
     public function replacement(): string
     {
-        return "<!-- Start component $1 $2 -->$0<!-- End component $1 $2 -->";
+        return '<!-- Start component $1 $2 -->$0<!-- End component $1 $2 -->';
     }
 }
