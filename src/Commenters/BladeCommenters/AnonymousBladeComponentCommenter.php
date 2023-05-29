@@ -11,6 +11,6 @@ class AnonymousBladeComponentCommenter implements BladeCommenter
 
     public function replacement(): string
     {
-        return '<!-- Start anonymous component: anonymous-blade-component.anonymous name: $2 -->$1<!-- End anonymous component: anonymous-blade-component.anonymous name: $2 -->';
+        return '<!-- Start anonymous component: $2 -->$1<!-- End anonymous component $2 -->';
     }
 }
