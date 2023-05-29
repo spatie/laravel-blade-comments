@@ -8,6 +8,7 @@ return [
      * various Blade directives.
      */
     'blade_commenters' => [
+        //Spatie\BladeComments\Commenters\BladeCommenters\AnonymousBladeComponentCommenter::class,
         Spatie\BladeComments\Commenters\BladeCommenters\BladeEndComponentCommenter::class,
         Spatie\BladeComments\Commenters\BladeCommenters\BladeStartComponentCommenter::class,
         Spatie\BladeComments\Commenters\BladeCommenters\ExtendsCommenter::class,
