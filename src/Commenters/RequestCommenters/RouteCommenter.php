@@ -3,7 +3,7 @@
 namespace Spatie\BladeComments\Commenters\RequestCommenters;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\Response;
 
 class RouteCommenter implements RequestCommenter
 {

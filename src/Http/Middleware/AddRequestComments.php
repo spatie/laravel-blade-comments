@@ -4,7 +4,9 @@ namespace Spatie\BladeComments\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Http\Response as LaravelResponse;
+use Orchestra\Testbench\Contracts\Laravel;
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Str;
 use Spatie\BladeComments\Commenters\RequestCommenters\RequestCommenter;
 
@@ -27,6 +29,10 @@ class AddRequestComments
 
     protected function shouldAddComments(Response $response): bool
     {
+        if (! $response instanceof LaravelResponse) {
+            return false;
+        }
+
         if (! Str::contains($response->headers->get('content-type'), 'text/html')) {
 
             return false;
