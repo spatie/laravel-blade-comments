@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Blade;
 use function Spatie\Snapshots\assertMatchesHtmlSnapshot;
 
 it('will add comments for anonymous Blade components', function () {

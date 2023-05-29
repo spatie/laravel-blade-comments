@@ -1,11 +1,22 @@
 <html><body>
 <p>This is the test of the anonymous component
 
-<!-- Start anonymous component: anonymous-blade-component.anonymous name: anonymous-component --><!-- Start component Illuminate\View\AnonymousComponent 'anonymous-component' --></p>
+<!-- Start component Illuminate\View\AnonymousComponent 'anonymous-component' --></p>
 <div>
     This is the anonymous component
 </div>
-<!-- End component Illuminate\View\AnonymousComponent 'anonymous-component' --><!-- End anonymous component: anonymous-blade-component.anonymous name: anonymous-component -->
+
+Including it again
+
+<!-- Start anonymous component: anonymous-blade-component.anonymous name: anonymous-component --><div>
+    This is the anonymous component
+</div>
+<!-- End anonymous component: anonymous-blade-component.anonymous name: anonymous-component -->
 
 Non-anonymous components should be handled correctly as well
+
+<div>
+    This is the Blade component
+</div>
+<!-- End component Illuminate\View\AnonymousComponent 'anonymous-component' -->
 </body></html>
