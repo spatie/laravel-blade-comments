@@ -1,10 +1,11 @@
 <html><body>
 <p>This is the test of the anonymous component
 
-<!-- Start component Illuminate\View\AnonymousComponent 'anonymous-component' --></p>
+<!-- Start anonymous component: anonymous-blade-component.anonymous name: anonymous-component --></p>
 <div>
     This is the anonymous component
 </div>
+<!-- End anonymous component: anonymous-blade-component.anonymous name: anonymous-component -->
 
 Including it again
 
@@ -15,8 +16,8 @@ Including it again
 
 Non-anonymous components should be handled correctly as well
 
-<div>
+<!-- Start component 'Spatie\BladeComments\Tests\TestSupport\BladeComponents\TestBladeComponent' 'test-component' --><div>
     This is the Blade component
 </div>
-<!-- End component Illuminate\View\AnonymousComponent 'anonymous-component' -->
+<!-- End component 'Spatie\BladeComments\Tests\TestSupport\BladeComponents\TestBladeComponent' 'test-component' -->
 </body></html>
