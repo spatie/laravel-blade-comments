@@ -34,7 +34,6 @@ class AddRequestComments
         }
 
         if (! Str::contains($response->headers->get('content-type'), 'text/html')) {
-
             return false;
         }
 
