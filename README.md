@@ -5,7 +5,15 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/spatie/laravel-blade-comments/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/spatie/laravel-blade-comments/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-blade-comments.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-blade-comments)
 
-This package aims to help find your way in Laravel applications by injecting HTML comments in your rendered output. These comments allow you to discover which blade files, controllers or Livewire components are used by using your browsers developer tools (inspect element).
+When looking at the HTML of a rendered page, it might not be obvious to you anymore which Blade view is responsible for which HTML. This package will add HTML before and after each rendered view, so you immediately know to which Blade view / component to go to change the output.
+
+When you inspect a part of the page using your favourite browser's dev tools, you'll immediately see which Blade view rendered that particular piece of content. Here's a demo where we inspected the breadcrumbs on [our own company site](https://spatie.be). It is immediately clear that the breadcrums are rendered by the `front.pages.docs.partials.breadcrumbs` Blade view.
+
+![screenshot](TODO)
+
+At the top of the HTML document, we'll also add some extra information about the topmost Blade view and the request.
+
+![screenshot](TODO)
 
 ## Support us
 
@@ -20,38 +28,69 @@ We highly appreciate you sending us a postcard from your hometown, mentioning wh
 You can install the package via composer:
 
 ```bash
-composer require-dev spatie/laravel-blade-comments
+composer require spatie/laravel-blade-comments --dev
 ```
 
 You can optionally publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag="laravel-blade-comments-config"
+php artisan vendor:publish --tag="blade-comments-config"
 ```
 
 This is the content of the published config file:
 
 ```php
 return [
-    'enable' => env('APP_ENV') !== 'production',
+    'enable' => ! env('APP_DEBUG'),
 
-    'precompilers' => [
-        \Spatie\BladeComments\BladeCommentsPrecompiler::class,
+    /*
+     * These classes provide regex for adding comments for
+     * various Blade directives.
+     */
+    'blade_commenters' => [
+        Spatie\BladeComments\Commenters\BladeCommenters\BladeComponentCommenter::class,
+        Spatie\BladeComments\Commenters\BladeCommenters\AnonymousBladeComponentCommenter::class,
+        Spatie\BladeComments\Commenters\BladeCommenters\ExtendsCommenter::class,
+        Spatie\BladeComments\Commenters\BladeCommenters\IncludeCommenter::class,
+        Spatie\BladeComments\Commenters\BladeCommenters\IncludeIfCommenter::class,
+        Spatie\BladeComments\Commenters\BladeCommenters\IncludeWhenCommenter::class,
+        Spatie\BladeComments\Commenters\BladeCommenters\LivewireComponentCommenter::class,
+        Spatie\BladeComments\Commenters\BladeCommenters\LivewireDirectiveCommenter::class,
+        Spatie\BladeComments\Commenters\BladeCommenters\SectionCommenter::class,
     ],
 
+    /*
+     * These classes will add comments at the top of the response.
+     */
+    'request_commenters' => [
+        Spatie\BladeComments\Commenters\RequestCommenters\ViewCommenter::class,
+        Spatie\BladeComments\Commenters\RequestCommenters\RouteCommenter::class,
+    ],
+
+    /*
+     * This middleware will add extra information about the request
+     * to the start of a rendered HTML page.
+     */
     'middleware' => [
-        Spatie\BladeComments\Middleware\AddDebugInfoToResponse::class,
-    ]
+        Spatie\BladeComments\Http\Middleware\AddRequestComments::class,
+    ],
+
+    /*
+     * This class is responsible for calling the registered Blade commenters.
+     * In most case, you don't need to modify this class.
+     */
+    'precompiler' => Spatie\BladeComments\BladeCommentsPrecompiler::class,
 ];
 ```
 
+## Usage
+
+After the package is installed, you'll immediately see that HTML comments are injected at the start and end of every Blade view.
+
 ## Extending
+
 The packages uses precompilers to add HTML comments to your HTML output by using Regex to find any Blade directives.
 If you want to add support for custom Blade directives, you can create your own precompiler class and add it to the `precompilers` array in the config file. Take a look at the package's `BladeCommentsPrecompiler` class to see how it works.
-
-```php
-
-## Testing
 
 ```bash
 composer test

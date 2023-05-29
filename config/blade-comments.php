@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'enable' => env('APP_ENV') !== 'production',
+    'enable' => ! env('APP_DEBUG'),
 
     /*
      * These classes provide regex for adding comments for
