@@ -2,7 +2,7 @@
 
 namespace Spatie\BladePaths\Precompilers;
 
-use Spatie\BladePaths\Precompilers\BladeCommenters\BladeCommenter;
+use Spatie\BladePaths\Commenters\BladeCommenters\BladeCommenter;
 
 class BladeCommentsPrecompiler implements Precompiler
 {

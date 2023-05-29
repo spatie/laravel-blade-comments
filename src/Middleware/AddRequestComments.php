@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
-use Spatie\BladePaths\Middleware\RequestCommenters\RequestCommenter;
+use Spatie\BladePaths\Commenters\RequestCommenters\RequestCommenter;
 
 class AddRequestComments
 {

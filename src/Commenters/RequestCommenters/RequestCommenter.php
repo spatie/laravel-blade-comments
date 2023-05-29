@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\BladePaths\Middleware\RequestCommenters;
+namespace Spatie\BladePaths\Commenters\RequestCommenters;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;

@@ -8,23 +8,23 @@ return [
      * various Blade directives.
      */
     'blade_commenters' => [
-        Spatie\BladePaths\Precompilers\BladeCommenters\BladeStartComponentCommenter::class,
-        Spatie\BladePaths\Precompilers\BladeCommenters\BlandeEndComponentCommenter::class,
-        Spatie\BladePaths\Precompilers\BladeCommenters\ExtendsCommenter::class,
-        Spatie\BladePaths\Precompilers\BladeCommenters\IncludeCommenter::class,
-        Spatie\BladePaths\Precompilers\BladeCommenters\IncludeIfCommenter::class,
-        Spatie\BladePaths\Precompilers\BladeCommenters\IncludeWhenCommenter::class,
-        Spatie\BladePaths\Precompilers\BladeCommenters\LivewireComponentCommenter::class,
-        Spatie\BladePaths\Precompilers\BladeCommenters\LivewireDirectiveCommenter::class,
-        Spatie\BladePaths\Precompilers\BladeCommenters\SectionCommenter::class,
+        \Spatie\BladePaths\Commenters\BladeCommenters\BladeStartComponentCommenter::class,
+        \Spatie\BladePaths\Commenters\BladeCommenters\BlandeEndComponentCommenter::class,
+        \Spatie\BladePaths\Commenters\BladeCommenters\ExtendsCommenter::class,
+        \Spatie\BladePaths\Commenters\BladeCommenters\IncludeCommenter::class,
+        \Spatie\BladePaths\Commenters\BladeCommenters\IncludeIfCommenter::class,
+        \Spatie\BladePaths\Commenters\BladeCommenters\IncludeWhenCommenter::class,
+        \Spatie\BladePaths\Commenters\BladeCommenters\LivewireComponentCommenter::class,
+        \Spatie\BladePaths\Commenters\BladeCommenters\LivewireDirectiveCommenter::class,
+        \Spatie\BladePaths\Commenters\BladeCommenters\SectionCommenter::class,
     ],
 
     /**
      * These classes will add comments at the top of the response.
      */
     'request_commenters' => [
-        Spatie\BladePaths\Middleware\RequestCommenters\ViewCommenter::class,
-        Spatie\BladePaths\Middleware\RequestCommenters\RouteCommenter::class,
+        \Spatie\BladePaths\Commenters\RequestCommenters\ViewCommenter::class,
+        \Spatie\BladePaths\Commenters\RequestCommenters\RouteCommenter::class,
     ],
 
     /*
