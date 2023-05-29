@@ -40,6 +40,6 @@ return [
      * In most case, you don't need to modify this class.
      */
     'precompilers' => [
-        Spatie\BladeComments\Precompilers\BladeCommentsPrecompiler::class,
+        \Spatie\BladeComments\BladeCommentsPrecompiler::class,
     ],
 ];

@@ -1,10 +1,11 @@
 <?php
 
-namespace Spatie\BladeComments\Precompilers;
+namespace Spatie\BladeComments;
 
 use Spatie\BladeComments\Commenters\BladeCommenters\BladeCommenter;
+use Spatie\BladeComments\Precompilers\Precompiler;
 
-class BladeCommentsPrecompiler implements Precompiler
+class BladeCommentsPrecompiler
 {
     public static function execute(string $string): string
     {
