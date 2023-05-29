@@ -3,7 +3,6 @@
 namespace Spatie\BladeComments;
 
 use Spatie\BladeComments\Commenters\BladeCommenters\BladeCommenter;
-use Spatie\BladeComments\Precompilers\Precompiler;
 
 class BladeCommentsPrecompiler
 {
