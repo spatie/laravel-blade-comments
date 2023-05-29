@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Spatie\BladeComments\Middleware\AddRequestComments;
+use Spatie\BladeComments\Http\Middleware\AddRequestComments;
 
 it('will add the route to the response', function () {
     Route::view('test-route', 'includes.include.page')

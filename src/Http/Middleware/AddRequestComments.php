@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\BladeComments\Middleware;
+namespace Spatie\BladeComments\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;

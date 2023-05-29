@@ -32,7 +32,7 @@ return [
      * to the start of a rendered HTML page
      */
     'middleware' => [
-        Spatie\BladeComments\Middleware\AddRequestComments::class,
+        \Spatie\BladeComments\Http\Middleware\AddRequestComments::class,
     ],
 
     /*
