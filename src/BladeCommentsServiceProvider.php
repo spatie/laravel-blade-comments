@@ -24,15 +24,14 @@ class BladeCommentsServiceProvider extends PackageServiceProvider
 
         $this
             ->registerMiddleware()
-            ->registerPrecompilers();
+            ->registerPrecompiler();
     }
 
-    protected function registerPrecompilers(): self
+    protected function registerPrecompiler(): self
     {
-        collect(config('blade-comments.precompilers'))
-            ->each(function ($precompiler) {
-                Blade::precompiler(fn (string $string) => $precompiler::execute($string));
-            });
+        $precompilerClass = config('blade-comments.precompiler');
+
+        Blade::precompiler(fn (string $string) => $precompilerClass::execute($string));
 
         return $this;
     }
