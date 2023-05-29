@@ -19,7 +19,7 @@ return [
         Spatie\BladeComments\Commenters\BladeCommenters\SectionCommenter::class,
     ],
 
-    /**
+    /*
      * These classes will add comments at the top of the response.
      */
     'request_commenters' => [
@@ -29,10 +29,10 @@ return [
 
     /*
      * This middleware will add extra information about the request
-     * to the start of a rendered HTML page
+     * to the start of a rendered HTML page.
      */
     'middleware' => [
-        \Spatie\BladeComments\Http\Middleware\AddRequestComments::class,
+        Spatie\BladeComments\Http\Middleware\AddRequestComments::class,
     ],
 
     /*
