@@ -1,11 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Spatie\BladePaths\Middleware\AddDebugInfo;
+use Spatie\BladePaths\Middleware\AddRequestComments;
+use Spatie\BladePaths\Middleware\AddRequestInfo;
 
 it('will add the route to the response', function () {
     Route::view('test-route', 'includes.include.page')
-        ->middleware(AddDebugInfo::class);
+        ->middleware(AddRequestComments::class);
 
     $response = $this
         ->get('test-route')

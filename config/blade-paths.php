@@ -7,7 +7,7 @@ return [
      * These classes provide regex for adding comments for
      * various Blade directives.
      */
-    'commenters' => [
+    'blade_commenters' => [
         Spatie\BladePaths\Precompilers\BladeCommenters\BladeStartComponentCommenter::class,
         Spatie\BladePaths\Precompilers\BladeCommenters\BlandeEndComponentCommenter::class,
         Spatie\BladePaths\Precompilers\BladeCommenters\ExtendsCommenter::class,
@@ -19,12 +19,20 @@ return [
         Spatie\BladePaths\Precompilers\BladeCommenters\SectionCommenter::class,
     ],
 
+    /**
+     * These classes will add comments at the top of the response.
+     */
+    'request_commenters' => [
+        Spatie\BladePaths\Middleware\RequestCommenters\ViewCommenter::class,
+        Spatie\BladePaths\Middleware\RequestCommenters\RouteCommenter::class,
+    ],
+
     /*
-     * This middleware will add extra debug information to the start
-     * of a rendered HTML page
+     * This middleware will add extra information about the request
+     * to the start of a rendered HTML page
      */
     'middleware' => [
-        Spatie\BladePaths\Middleware\AddDebugInfo::class,
+        Spatie\BladePaths\Middleware\AddRequestComments::class,
     ],
 
     /*

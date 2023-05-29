@@ -24,7 +24,7 @@ class BladeCommentsPrecompiler implements Precompiler
      */
     protected static function commenters(): array
     {
-        return collect(config('blade-paths.commenters'))
+        return collect(config('blade-paths.blade_commenters'))
             ->map(fn (string $class) => app($class))
             ->toArray();
     }
