@@ -14,7 +14,7 @@ class AddRequestComments
     {
         $response = $next($request);
 
-        if (!$this->shouldAddComments($response)) {
+        if (! $this->shouldAddComments($response)) {
             return $response;
         }
 
@@ -27,7 +27,7 @@ class AddRequestComments
 
     protected function shouldAddComments(Response $response): bool
     {
-        if (!Str::contains($response->headers->get('content-type'), 'text/html')) {
+        if (! Str::contains($response->headers->get('content-type'), 'text/html')) {
 
             return false;
         }
@@ -43,13 +43,11 @@ class AddRequestComments
     {
 
         $comments = collect(config('blade-paths.request_commenters'))
-            ->map(fn(string $class) => app($class))
-            ->map(fn(RequestCommenter $commenter) => $commenter->comment($request, $response))
+            ->map(fn (string $class) => app($class))
+            ->map(fn (RequestCommenter $commenter) => $commenter->comment($request, $response))
             ->filter()
             ->implode(PHP_EOL);
 
         return "{$comments}{$response->getContent()}";
     }
-
-
 }
