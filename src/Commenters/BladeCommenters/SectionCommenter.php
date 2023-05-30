@@ -6,11 +6,11 @@ class SectionCommenter implements BladeCommenter
 {
     public function pattern(): string
     {
-        return "/@section\([\'\"](.*?)['\"]\)/";
+        return "/@yield\([\'\"](.*?)['\"]\)/";
     }
 
     public function replacement(): string
     {
-        return '<!-- Start section: $1 -->$0';
+        return '<!-- Start section: $1 -->$0<!-- End section: $1 -->';
     }
 }
