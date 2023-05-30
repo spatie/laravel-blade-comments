@@ -1,4 +1,4 @@
-#  Show Blade paths in your rendered output 
+## Add debug comments to your rendered output
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-blade-comments.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-blade-comments)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/spatie/laravel-blade-comments/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/spatie/laravel-blade-comments/actions?query=workflow%3Arun-tests+branch%3Amain)
