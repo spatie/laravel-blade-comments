@@ -33,6 +33,7 @@ class TestCase extends Orchestra
     public function getEnvironmentSetUp($app)
     {
         config()->set('app.key', '6rE9Nz59bGRbeMATftriyQjrpF7DcOQm');
+        config()->set('blade-comments.enable', true);
 
         View::addLocation(__DIR__.'/TestSupport/views');
 
