@@ -9,11 +9,11 @@ When looking at the HTML of a rendered page, it might not be obvious to you anym
 
 When you inspect a part of the page using your favourite browser's dev tools, you'll immediately see which Blade view rendered that particular piece of content. Here's a demo where we inspected the breadcrumbs on [our own company site](https://spatie.be). It is immediately clear that the breadcrums are rendered by the `front.pages.docs.partials.breadcrumbs` Blade view.
 
-![screenshot](TODO)
+![screenshot](https://github.com/spatie/laravel-blade-comments/blob/main/docs/breadcrumbs.jpg)
 
 At the top of the HTML document, we'll also add some extra information about the topmost Blade view and the request.
 
-![screenshot](TODO)
+![screenshot](https://github.com/spatie/laravel-blade-comments/blob/main/docs/page.jpg)
 
 ## Support us
 
