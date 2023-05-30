@@ -87,10 +87,52 @@ return [
 
 After the package is installed, you'll immediately see that HTML comments are injected at the start and end of every Blade view.
 
-## Extending
+### Using your own Blade Commenters
 
-The packages uses precompilers to add HTML comments to your HTML output by using Regex to find any Blade directives.
-If you want to add support for custom Blade directives, you can create your own precompiler class and add it to the `precompilers` array in the config file. Take a look at the package's `BladeCommentsPrecompiler` class to see how it works.
+You can easily extend the package to add more comments. In the `blade_commenters` key of the `blade_commenters` config file, you can add your own `BladeCommenter`. A `BladeCommenter` is any class that implements the following interface:
+
+```php
+namespace Spatie\BladeComments\Commenters\BladeCommenters;
+
+interface BladeCommenter
+{
+    /*
+     * Should return a regex pattern that will be used
+     * in preg_replace. 
+     */
+    public function pattern(): string;
+
+    /*
+     * Should return a replacement string that will be
+     * used in preg_replace.
+     */
+    public function replacement(): string;
+}
+```
+
+Take a look at the `BladeCommenters` that ship with the package for an example.
+
+### Using your own request commenters
+
+The package adds useful information about the request at the top of the HTML page. This is done by the so called request commenters . You'll find the default request commenters in the `request_commenters` key of the `blade-comments` config file. 
+
+You can add your own request commenters there. A `RequestCommentor` is any class that implements the following interface:
+
+```php
+namespace Spatie\BladeComments\Commenters\RequestCommenters;
+
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+interface RequestCommenter
+{
+    public function comment(Request $request, Response $response): ?string;
+}
+```
+
+If the `comment` function returns a string, it will be injected at the top of the HTML document. Take a look at the request commenters that ship with the package for an example.
+
+## Testing
 
 ```bash
 composer test
