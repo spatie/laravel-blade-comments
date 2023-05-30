@@ -22,7 +22,7 @@ class TestCase extends Orchestra
         $this->artisan('view:clear');
     }
 
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
         return [
             BladeCommentsServiceProvider::class,
@@ -30,7 +30,7 @@ class TestCase extends Orchestra
         ];
     }
 
-    public function getEnvironmentSetUp($app)
+    public function getEnvironmentSetUp($app): void
     {
         config()->set('app.key', '6rE9Nz59bGRbeMATftriyQjrpF7DcOQm');
         config()->set('blade-comments.enable', true);
@@ -41,7 +41,7 @@ class TestCase extends Orchestra
         Livewire::component('test-component', TestLivewireComponent::class);
     }
 
-    public function rerunServiceProvider()
+    public function rerunServiceProvider(): void
     {
         $provider = new BladeCommentsServiceProvider($this->app);
 
