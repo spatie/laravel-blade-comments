@@ -1,10 +1,14 @@
 {
     "name": "spatie/laravel-blade-comments",
-    "description": " Show Blade paths in your rendered output ",
+    "description": "Add debug comments to your rendered output",
     "keywords": [
         "spatie",
         "laravel",
-        "laravel-blade-comments"
+        "laravel-blade-comments",
+        "debug",
+        "blade",
+        "view",
+        "comments"
     ],
     "homepage": "https://github.com/spatie/laravel-blade-comments",
     "license": "MIT",
