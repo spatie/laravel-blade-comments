@@ -41,7 +41,7 @@ This is the content of the published config file:
 
 ```php
 return [
-    'enable' => ! env('APP_DEBUG'),
+    'enable' => env('APP_DEBUG'),
 
     /*
      * These classes provide regex for adding comments for
