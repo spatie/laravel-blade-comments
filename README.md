@@ -7,7 +7,7 @@
 
 When looking at the HTML of a rendered page, it might not be obvious to you anymore which Blade view is responsible for which HTML. This package will add HTML before and after each rendered view, so you immediately know to which Blade view / component to go to change the output.
 
-When you inspect a part of the page using your favourite browser's dev tools, you'll immediately see which Blade view rendered that particular piece of content. Here's a demo where we inspected the breadcrumbs on [our own company site](https://spatie.be). It is immediately clear that the breadcrums are rendered by the `front.pages.docs.partials.breadcrumbs` Blade view.
+When you inspect a part of the page using your favourite browser's dev tools, you'll immediately see which Blade view rendered that particular piece of content. Here's a demo where we inspected the breadcrumbs on [our own company site](https://spatie.be). It is immediately clear that the breadcrumbs are rendered by the `front.pages.docs.partials.breadcrumbs` Blade view.
 
 ![screenshot](https://github.com/spatie/laravel-blade-comments/blob/main/docs/breadcrumbs.jpg)
 
