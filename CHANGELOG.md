@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-blade-comments` will be documented in this file.
 
+## 1.0.3 - 2023-06-19
+
+**Full Changelog**: https://github.com/spatie/laravel-blade-comments/compare/1.0.2...1.0.3
+
 ## 1.0.2 - 2023-06-16
 
 ### What's Changed
