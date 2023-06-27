@@ -152,7 +152,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [Tim Van Dijck](https://github.com/spatie)
+- [Tim Van Dijck](https://github.com/timvandijck)
 - [Freek Van der Herten](https://github.com/freekmurze)
 - [All Contributors](../../contributors)
 
