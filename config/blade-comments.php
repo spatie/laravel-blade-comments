@@ -37,7 +37,7 @@ return [
 
     /*
      * This class is responsible for calling the registered Blade commenters.
-     * In most case, you don't need to modify this class.
+     * In most cases, you don't need to modify this class.
      */
     'precompiler' => Spatie\BladeComments\BladeCommentsPrecompiler::class,
 ];
