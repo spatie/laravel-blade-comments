@@ -80,12 +80,28 @@ return [
      * In most case, you don't need to modify this class.
      */
     'precompiler' => Spatie\BladeComments\BladeCommentsPrecompiler::class,
+    
+    'blacklist' => [
+        /**
+         * Add includes you don't want to be affected by the package here.
+         * For example:
+         *  'styles.theme',
+         *  'partials.sidebar',
+         */
+        'includes' => [
+
+        ]
+    ]
 ];
 ```
 
 ## Usage
 
 After the package is installed, you'll immediately see that HTML comments are injected at the start and end of every Blade view.
+
+## Excluding views
+Sometimes you might not want to have an HTML comment being wrapped around an include. For example when you use a partial to add some CSS to a page.
+In these cases you can add views to the `blacklist.includes` array in the config file.
 
 ### Using your own Blade Commenters
 

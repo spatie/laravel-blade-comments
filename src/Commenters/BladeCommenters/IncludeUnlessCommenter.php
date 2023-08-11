@@ -2,7 +2,7 @@
 
 namespace Spatie\BladeComments\Commenters\BladeCommenters;
 
-class IncludeIfCommenter implements BladeCommenter
+class IncludeUnlessCommenter implements BladeCommenter
 {
     public function pattern(): string
     {
@@ -13,11 +13,11 @@ class IncludeIfCommenter implements BladeCommenter
             $blacklistRegex = '(?!'.implode('|', $blackListItems).')';
         }
 
-        return "/@includeIf\([\'\"]{$blacklistRegex}(.*?)['\"]\)/";
+        return '/(?:^|\n)(\s*)@includeUnless\(([^)]+),\s*[\'"]'.$blacklistRegex.'([^\'"]*)[\'"]\)/';
     }
 
     public function replacement(): string
     {
-        return '<!-- Start includeIf: $1 -->$0<!-- End includeIf: $1 -->';
+        return '<!-- Start includeUnless: $3 --> $0<!-- End includeUnless: $3 -->';
     }
 }

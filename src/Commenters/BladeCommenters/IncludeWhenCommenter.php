@@ -6,7 +6,14 @@ class IncludeWhenCommenter implements BladeCommenter
 {
     public function pattern(): string
     {
-        return '/(?:^|\n)(\s*)@includeWhen\(([^)]+),\s*[\'"]([^\'"]*)[\'"]\)/';
+        $blacklistRegex = '';
+        $blackListItems = config('blade-comments.blacklist.includes', []);
+
+        if (count($blackListItems)) {
+            $blacklistRegex = '(?!'.implode('|', $blackListItems).')';
+        }
+
+        return '/(?:^|\n)(\s*)@includeWhen\(([^)]+),\s*[\'"]'.$blacklistRegex.'([^\'"]*)[\'"]\)/';
     }
 
     public function replacement(): string
