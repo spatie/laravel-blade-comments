@@ -10,10 +10,10 @@ class IncludeUnlessCommenter implements BladeCommenter
         $blackListItems = config('blade-comments.blacklist.includes', []);
 
         if (count($blackListItems)) {
-            $blacklistRegex = '(?!' . implode('|', $blackListItems) . ')';
+            $blacklistRegex = '(?!'.implode('|', $blackListItems).')';
         }
 
-        return '/(?:^|\n)(\s*)@includeUnless\(([^)]+),\s*[\'"]' . $blacklistRegex . '([^\'"]*)[\'"]\)/';
+        return '/(?:^|\n)(\s*)@includeUnless\(([^)]+),\s*[\'"]'.$blacklistRegex.'([^\'"]*)[\'"]\)/';
     }
 
     public function replacement(): string

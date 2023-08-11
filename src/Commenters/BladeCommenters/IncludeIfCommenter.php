@@ -10,7 +10,7 @@ class IncludeIfCommenter implements BladeCommenter
         $blackListItems = config('blade-comments.blacklist.includes', []);
 
         if (count($blackListItems)) {
-            $blacklistRegex = '(?!' . implode('|', $blackListItems) . ')';
+            $blacklistRegex = '(?!'.implode('|', $blackListItems).')';
         }
 
         return "/@includeIf\([\'\"]{$blacklistRegex}(.*?)['\"]\)/";

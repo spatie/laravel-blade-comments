@@ -10,10 +10,10 @@ class IncludeWhenCommenter implements BladeCommenter
         $blackListItems = config('blade-comments.blacklist.includes', []);
 
         if (count($blackListItems)) {
-            $blacklistRegex = '(?!' . implode('|', $blackListItems) . ')';
+            $blacklistRegex = '(?!'.implode('|', $blackListItems).')';
         }
 
-        return '/(?:^|\n)(\s*)@includeWhen\(([^)]+),\s*[\'"]' . $blacklistRegex . '([^\'"]*)[\'"]\)/';
+        return '/(?:^|\n)(\s*)@includeWhen\(([^)]+),\s*[\'"]'.$blacklistRegex.'([^\'"]*)[\'"]\)/';
     }
 
     public function replacement(): string
