@@ -2,6 +2,21 @@
 
 All notable changes to `laravel-blade-comments` will be documented in this file.
 
+## 1.1.0 - 2023-08-11
+
+### What's Changed
+
+- Minor tweaks by @utsavsomaiya in https://github.com/spatie/laravel-blade-comments/pull/9
+- Bump dependabot/fetch-metadata from 1.5.1 to 1.6.0 by @dependabot in https://github.com/spatie/laravel-blade-comments/pull/10
+- Feature/blacklist by @timvandijck in https://github.com/spatie/laravel-blade-comments/pull/14
+
+### New Contributors
+
+- @utsavsomaiya made their first contribution in https://github.com/spatie/laravel-blade-comments/pull/9
+- @timvandijck made their first contribution in https://github.com/spatie/laravel-blade-comments/pull/14
+
+**Full Changelog**: https://github.com/spatie/laravel-blade-comments/compare/1.0.3...1.1.0
+
 ## 1.0.3 - 2023-06-19
 
 **Full Changelog**: https://github.com/spatie/laravel-blade-comments/compare/1.0.2...1.0.3
