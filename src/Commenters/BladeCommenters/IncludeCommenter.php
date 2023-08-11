@@ -6,7 +6,14 @@ class IncludeCommenter implements BladeCommenter
 {
     public function pattern(): string
     {
-        return "/@include\([\'\"](.*?)['\"]\)/";
+        $blacklistRegex = '';
+        $blackListItems = config('blade-comments.blacklist.includes', []);
+
+        if (count($blackListItems)) {
+            $blacklistRegex = '(?!' . implode('|', $blackListItems) . ')';
+        }
+
+        return "/@include\([\'\"]{$blacklistRegex}(.*?)['\"]\)/";
     }
 
     public function replacement(): string

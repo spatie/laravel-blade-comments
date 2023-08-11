@@ -2,7 +2,7 @@
 
 namespace Spatie\BladeComments\Commenters\BladeCommenters;
 
-class IncludeWhenCommenter implements BladeCommenter
+class IncludeUnlessCommenter implements BladeCommenter
 {
     public function pattern(): string
     {
@@ -13,11 +13,11 @@ class IncludeWhenCommenter implements BladeCommenter
             $blacklistRegex = '(?!' . implode('|', $blackListItems) . ')';
         }
 
-        return '/(?:^|\n)(\s*)@includeWhen\(([^)]+),\s*[\'"]' . $blacklistRegex . '([^\'"]*)[\'"]\)/';
+        return '/(?:^|\n)(\s*)@includeUnless\(([^)]+),\s*[\'"]' . $blacklistRegex . '([^\'"]*)[\'"]\)/';
     }
 
     public function replacement(): string
     {
-        return '<!-- Start includeWhen: $3 --> $0<!-- End includeWhen: $3 -->';
+        return '<!-- Start includeUnless: $3 --> $0<!-- End includeUnless: $3 -->';
     }
 }
