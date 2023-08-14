@@ -6,14 +6,14 @@ class IncludeIfCommenter implements BladeCommenter
 {
     public function pattern(): string
     {
-        $blacklistRegex = '';
-        $blackListItems = config('blade-comments.blacklist.includes', []);
+        $excludeRegex = '';
+        $excludes = config('blade-comments.excludes.includes', []);
 
-        if (count($blackListItems)) {
-            $blacklistRegex = '(?!'.implode('|', $blackListItems).')';
+        if (count($excludes)) {
+            $excludeRegex = '(?!'.implode('|', $excludes).')';
         }
 
-        return "/@includeIf\([\'\"]{$blacklistRegex}(.*?)['\"]\)/";
+        return "/@includeIf\([\'\"]{$excludeRegex}(.*?)['\"]\)/";
     }
 
     public function replacement(): string
