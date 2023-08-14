@@ -42,7 +42,7 @@ return [
      */
     'precompiler' => Spatie\BladeComments\BladeCommentsPrecompiler::class,
 
-    'blacklist' => [
+    'excludes' => [
         /**
          * Add includes you don't want to be affected by the package here.
          * For example:

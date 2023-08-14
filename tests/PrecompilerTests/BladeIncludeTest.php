@@ -8,10 +8,10 @@ it('will add comments for includes', function () {
     assertMatchesHtmlSnapshot($renderedView);
 });
 
-it('should filter blacklisted includes', function () {
-    config(['blade-comments.blacklist.includes' => ['includes.exclude']]);
+it('should filter excluded includes', function () {
+    config(['blade-comments.excludes.includes' => ['includes.exclude']]);
 
-    $renderedView = view('includes.include.blacklist')->render();
+    $renderedView = view('includes.include.excludes')->render();
 
     assertMatchesHtmlSnapshot($renderedView);
 });
@@ -22,9 +22,9 @@ it('will add comments for includeIf', function () {
     assertMatchesHtmlSnapshot($renderedView);
 });
 
-it('should filter blacklisted includeIfs', function () {
-    config(['blade-comments.blacklist.includes' => ['includes.exclude']]);
-    $renderedView = view('includes.includeIf.blacklist')->render();
+it('should filter excluded includeIfs', function () {
+    config(['blade-comments.excludes.includes' => ['includes.exclude']]);
+    $renderedView = view('includes.includeIf.excludes')->render();
 
     assertMatchesHtmlSnapshot($renderedView);
 });
@@ -35,9 +35,9 @@ it('will add comments for includeWhen', function () {
     assertMatchesHtmlSnapshot($renderedView);
 });
 
-it('should filter blacklisted includeWhens', function () {
-    config(['blade-comments.blacklist.includes' => ['includes.exclude']]);
-    $renderedView = view('includes.includeWhen.blacklist')->render();
+it('should filter excluded includeWhens', function () {
+    config(['blade-comments.excludes.includes' => ['includes.exclude']]);
+    $renderedView = view('includes.includeWhen.excludes')->render();
 
     assertMatchesHtmlSnapshot($renderedView);
 });
@@ -48,9 +48,9 @@ it('will add comments for includeUnless', function () {
     assertMatchesHtmlSnapshot($renderedView);
 });
 
-it('should filter blacklisted includeUnless', function () {
-    config(['blade-comments.blacklist.includes' => ['includes.exclude']]);
-    $renderedView = view('includes.includeUnless.blacklist')->render();
+it('should filter excluded includeUnless', function () {
+    config(['blade-comments.excludes.includes' => ['includes.exclude']]);
+    $renderedView = view('includes.includeUnless.excludes')->render();
 
     assertMatchesHtmlSnapshot($renderedView);
 });
