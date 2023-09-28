@@ -13,7 +13,7 @@ class IncludeUnlessCommenter implements BladeCommenter
             $excludeRegex = '(?!'.implode('|', $excludes).')';
         }
 
-        return '/(?:^|\n)(\s*)@includeUnless\(([^)]+),\s*[\'"]'.$excludeRegex.'([^\'"]*)[\'"]\)/';
+        return '/(?:^|\n|\r\n)(\s*)@includeUnless\(([^)]+),\s*[\'"]'.$excludeRegex.'([^\'"]*)[\'"]\)/';
     }
 
     public function replacement(): string

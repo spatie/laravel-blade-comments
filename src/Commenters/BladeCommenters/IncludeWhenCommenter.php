@@ -13,7 +13,7 @@ class IncludeWhenCommenter implements BladeCommenter
             $excludesRegex = '(?!'.implode('|', $excludes).')';
         }
 
-        return '/(?:^|\n)(\s*)@includeWhen\(([^)]+),\s*[\'"]'.$excludesRegex.'([^\'"]*)[\'"]\)/';
+        return '/(?:^|\n|\r\n)(\s*)@includeWhen\(([^)]+),\s*[\'"]'.$excludesRegex.'([^\'"]*)[\'"]\)/';
     }
 
     public function replacement(): string
