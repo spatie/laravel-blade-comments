@@ -53,6 +53,9 @@ class TestCase extends Orchestra
         // remove all wire:x attributes
         $html = preg_replace('/(\s+(wire:\w+)=(?<c>[\'"]).*?(?P=c))/s', '', $html);
 
+        // remove wire:end random string
+        $html = preg_replace('/wire-end:[^ ]+\s*/', '', $html);
+
         return $html;
     }
 }
