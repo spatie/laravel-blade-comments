@@ -8,4 +8,5 @@ it('will add comments for Livewire components', function () {
     $renderedView = $this->preparedLivewireHtmlForSnapshot($renderedView);
 
     assertMatchesHtmlSnapshot($renderedView);
+    
 });
