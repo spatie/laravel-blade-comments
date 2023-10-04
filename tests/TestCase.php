@@ -51,6 +51,11 @@ class TestCase extends Orchestra
     public function preparedLivewireHtmlForSnapshot(string $html): string
     {
         // remove all wire:* attributes
-        return preg_replace('/(\s+(wire:[\w-]+)=(?<q>[\'"]).*?(?P=q))/s', '', $html);
+        $html = preg_replace('/(\s+(wire:[\w-]+)=(?<q>[\'"]).*?(?P=q))/s', '', $html);
+
+        // remove wire-end random string
+        $html = preg_replace('/wire-end:[^ ]+\s*/', '', $html);
+
+        return $html;
     }
 }
