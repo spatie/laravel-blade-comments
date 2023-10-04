@@ -56,6 +56,9 @@ class TestCase extends Orchestra
         // remove wire-end random string
         $html = preg_replace('/wire-end:[^ ]+\s*/', '', $html);
 
+        // remove "livewire component" comment that is added only by livewire <= 2.x
+        $html = str_replace("\n<!-- Livewire Component -->", '', $html);
+
         return $html;
     }
 }
