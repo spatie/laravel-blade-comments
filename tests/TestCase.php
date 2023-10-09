@@ -51,6 +51,14 @@ class TestCase extends Orchestra
     public function preparedLivewireHtmlForSnapshot(string $html): string
     {
         // remove all wire:* attributes
-        return preg_replace('/(\s+(wire:\w+)=(?<q>[\'"]).*?(?P=q))/s', '', $html);
+        $html = preg_replace('/(\s+(wire:[\w-]+)=(?<q>[\'"]).*?(?P=q))/s', '', $html);
+
+        // remove wire-end random string
+        $html = preg_replace('/wire-end:[^ ]+\s*/', '', $html);
+
+        // remove "livewire component" comment that is added only by livewire <= 2.x
+        $html = str_replace("\n<!-- Livewire Component -->", '', $html);
+
+        return $html;
     }
 }
