@@ -2,6 +2,19 @@
 
 All notable changes to `laravel-blade-comments` will be documented in this file.
 
+## 1.2.1 - 2023-10-09
+
+### What's Changed
+
+- test: fix failing livewire test by @StyleShit in https://github.com/spatie/laravel-blade-comments/pull/18
+- fix: conditional includes are not working properly on Windows by @StyleShit in https://github.com/spatie/laravel-blade-comments/pull/17
+
+### New Contributors
+
+- @StyleShit made their first contribution in https://github.com/spatie/laravel-blade-comments/pull/18
+
+**Full Changelog**: https://github.com/spatie/laravel-blade-comments/compare/1.2.0...1.2.1
+
 ## 1.2.0 - 2023-08-14
 
 ### What's Changed
