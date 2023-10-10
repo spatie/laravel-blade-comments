@@ -8,6 +8,12 @@ it('will add comments for includes', function () {
     assertMatchesHtmlSnapshot($renderedView);
 });
 
+it('will add comments for includes with data', function () {
+    $renderedView = view('includes.include.page-with-data')->render();
+
+    assertMatchesHtmlSnapshot($renderedView);
+});
+
 it('should filter excluded includes', function () {
     config(['blade-comments.excludes.includes' => ['includes.exclude']]);
 
@@ -18,6 +24,12 @@ it('should filter excluded includes', function () {
 
 it('will add comments for includeIf', function () {
     $renderedView = view('includes.includeIf.page')->render();
+
+    assertMatchesHtmlSnapshot($renderedView);
+});
+
+it('will add comments for includeIf with data', function () {
+    $renderedView = view('includes.includeIf.page-with-data')->render();
 
     assertMatchesHtmlSnapshot($renderedView);
 });

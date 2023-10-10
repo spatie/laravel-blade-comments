@@ -6,18 +6,18 @@ class IncludeIfCommenter implements BladeCommenter
 {
     public function pattern(): string
     {
-        $excludeRegex = '';
+        $excludesRegex = '';
         $excludes = config('blade-comments.excludes.includes', []);
 
         if (count($excludes)) {
-            $excludeRegex = '(?!'.implode('|', $excludes).')';
+            $excludesRegex = '(?!'.implode('|', $excludes).')';
         }
 
-        return "/@includeIf\([\'\"]{$excludeRegex}(.*?)['\"]\)/";
+        return "/@includeIf\((?<q>[\'\"]){$excludesRegex}(.*?)\k<q>(,(.*))?\)/s";
     }
 
     public function replacement(): string
     {
-        return '<!-- Start includeIf: $1 -->$0<!-- End includeIf: $1 -->';
+        return '<!-- Start includeIf: $2 -->$0<!-- End includeIf: $2 -->';
     }
 }
