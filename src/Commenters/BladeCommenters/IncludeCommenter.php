@@ -13,11 +13,11 @@ class IncludeCommenter implements BladeCommenter
             $excludesRegex = '(?!'.implode('|', $excludes).')';
         }
 
-        return "/@include\([\'\"]{$excludesRegex}(.*?)['\"]\)/";
+        return "/@include\((?<q>[\'\"]){$excludesRegex}(.*?)\k<q>(,(.*))?\)/s";
     }
 
     public function replacement(): string
     {
-        return '<!-- Start include: $1 -->$0<!-- End include: $1 -->';
+        return '<!-- Start include: $2 -->$0<!-- End include: $2 -->';
     }
 }
