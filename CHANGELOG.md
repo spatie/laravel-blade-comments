@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-blade-comments` will be documented in this file.
 
+## 1.2.2 - 2023-10-17
+
+### What's Changed
+
+- fix: includes with data sometimes throw exceptions by @StyleShit in https://github.com/spatie/laravel-blade-comments/pull/20
+
+**Full Changelog**: https://github.com/spatie/laravel-blade-comments/compare/1.2.1...1.2.2
+
 ## 1.2.1 - 2023-10-09
 
 ### What's Changed
