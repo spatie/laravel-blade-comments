@@ -2,6 +2,21 @@
 
 All notable changes to `laravel-blade-comments` will be documented in this file.
 
+## 1.3.0 - 2024-03-07
+
+### What's Changed
+
+* Bump stefanzweifel/git-auto-commit-action from 4 to 5 by @dependabot in https://github.com/spatie/laravel-blade-comments/pull/19
+* Bump aglipanci/laravel-pint-action from 2.3.0 to 2.3.1 by @dependabot in https://github.com/spatie/laravel-blade-comments/pull/22
+* Bump actions/checkout from 3 to 4 by @dependabot in https://github.com/spatie/laravel-blade-comments/pull/16
+* Laravel 11.x Compatibility by @laravel-shift in https://github.com/spatie/laravel-blade-comments/pull/24
+
+### New Contributors
+
+* @laravel-shift made their first contribution in https://github.com/spatie/laravel-blade-comments/pull/24
+
+**Full Changelog**: https://github.com/spatie/laravel-blade-comments/compare/1.2.2...1.3.0
+
 ## 1.2.2 - 2023-10-17
 
 ### What's Changed
