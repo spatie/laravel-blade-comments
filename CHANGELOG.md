@@ -2,6 +2,19 @@
 
 All notable changes to `laravel-blade-comments` will be documented in this file.
 
+## 1.3.1 - 2025-02-21
+
+### What's Changed
+
+* Bump aglipanci/laravel-pint-action from 2.3.1 to 2.4 by @dependabot in https://github.com/spatie/laravel-blade-comments/pull/26
+* Bump dependabot/fetch-metadata from 1.6.0 to 2.1.0 by @dependabot in https://github.com/spatie/laravel-blade-comments/pull/27
+* Bump dependabot/fetch-metadata from 2.1.0 to 2.2.0 by @dependabot in https://github.com/spatie/laravel-blade-comments/pull/28
+* Bump dependabot/fetch-metadata from 2.2.0 to 2.3.0 by @dependabot in https://github.com/spatie/laravel-blade-comments/pull/30
+* Bump aglipanci/laravel-pint-action from 2.4 to 2.5 by @dependabot in https://github.com/spatie/laravel-blade-comments/pull/31
+* Laravel 12.x Compatibility by @laravel-shift in https://github.com/spatie/laravel-blade-comments/pull/32
+
+**Full Changelog**: https://github.com/spatie/laravel-blade-comments/compare/1.3.0...1.3.1
+
 ## 1.3.0 - 2024-03-07
 
 ### What's Changed
