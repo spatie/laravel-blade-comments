@@ -2,6 +2,4 @@
 
 namespace Spatie\BladeComments\Tests\TestSupport;
 
-class InvalidRenderer
-{
-}
+class InvalidRenderer {}
