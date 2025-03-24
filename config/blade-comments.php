@@ -4,6 +4,12 @@ return [
     'enable' => env('APP_DEBUG'),
 
     /*
+     * A string that is prefixed to every comment for easy searching,
+     * set to `false` or '' to disable
+     */
+    'prefix' => '',
+
+    /*
      * These classes provide regex for adding comments for
      * various Blade directives.
      */

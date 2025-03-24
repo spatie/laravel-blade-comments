@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response as LaravelResponse;
 use Illuminate\Support\Str;
+use Spatie\BladeComments\BladeCommentsPrecompiler;
 use Spatie\BladeComments\Commenters\RequestCommenters\RequestCommenter;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -47,7 +48,7 @@ class AddRequestComments
     {
         $comments = collect(config('blade-comments.request_commenters'))
             ->map(fn (string $class) => app($class))
-            ->map(fn (RequestCommenter $commenter) => $commenter->comment($request, $response))
+            ->map(fn (RequestCommenter $commenter) => BladeCommentsPrecompiler::insertPrefix($commenter->comment($request, $response)))
             ->filter()
             ->implode(PHP_EOL);
 
