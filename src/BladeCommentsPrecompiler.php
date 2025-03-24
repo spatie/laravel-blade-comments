@@ -13,7 +13,7 @@ class BladeCommentsPrecompiler
             if ($commenter instanceof BladeCommenterWithCallback) {
                 $bladeContent = preg_replace_callback(
                     $commenter->pattern(),
-                    fn (array $matches) => $commenter->replacementCallback($matches),
+                    fn (array $matches) => self::insertPrefix($commenter->replacementCallback($matches)),
                     $bladeContent,
                 );
 
@@ -22,7 +22,7 @@ class BladeCommentsPrecompiler
 
             $bladeContent = preg_replace(
                 $commenter->pattern(),
-                $commenter->replacement(),
+                self::insertPrefix($commenter->replacement()),
                 $bladeContent,
             );
         }
@@ -38,5 +38,27 @@ class BladeCommentsPrecompiler
         return collect(config('blade-comments.blade_commenters'))
             ->map(fn (string $class) => app($class))
             ->toArray();
+    }
+
+    /**
+     * Insert our comment prefix
+     *
+     * @param  null|string  $string
+     */
+    public static function insertPrefix($string): ?string
+    {
+        if (! config('blade-comments.prefix')) {
+            return $string;
+        }
+
+        $prefix = '<!--';
+        $string = ltrim($string);
+
+        if (substr($string, 0, strlen($prefix)) == $prefix) {
+
+            $string = '<!-- '.config('blade-comments.prefix').substr($string, strlen($prefix));
+        }
+
+        return $string;
     }
 }
