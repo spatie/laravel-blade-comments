@@ -54,9 +54,8 @@ class BladeCommentsPrecompiler
         $prefix = '<!--';
         $string = ltrim($string);
 
-        if (substr($string, 0, strlen($prefix)) == $prefix) {
-
-            $string = '<!-- '.config('blade-comments.prefix').substr($string, strlen($prefix));
+        if (strpos($string, $prefix) === 0) {
+            $string = $prefix.' '.config('blade-comments.prefix').substr($string, strlen($prefix));
         }
 
         return $string;
