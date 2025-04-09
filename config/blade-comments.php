@@ -52,5 +52,16 @@ return [
         'includes' => [
 
         ],
+
+        /**
+         * Add sections you don't want to be affected by the package here.
+         * These sections will not have HTML comments added around @yield directives
+         * For example:
+         *  'header',
+         *  'message',
+         */
+        'sections' => [
+
+        ],
     ],
 ];
