@@ -9,7 +9,7 @@ class SectionCommenter implements BladeCommenterWithCallback
         $excludes = config('blade-comments.excludes.sections', []);
 
         if (count($excludes)) {
-            $excludesRegex = '(?!\s*[\'"](?:' . implode('|', $excludes) . ')[\'"])';
+            $excludesRegex = '(?!\s*[\'"](?:'.implode('|', $excludes).')[\'"])';
             $regex = "/@yield(\({$excludesRegex}(?:[^)(]+|(?1))*+\))(?![^<>]*<\/title>)/";
         } else {
             $regex = "/@yield(\((?:[^)(]+|(?1))*+\))(?![^<>]*<\/title>)/";
