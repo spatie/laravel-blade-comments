@@ -6,7 +6,16 @@ class SectionCommenter implements BladeCommenterWithCallback
 {
     public function pattern(): string
     {
-        return "/@yield(\((?:[^)(]+|(?1))*+\))(?![^<>]*<\/title>)/";
+        $excludes = config('blade-comments.excludes.sections', []);
+
+        if (count($excludes)) {
+            $excludesRegex = '(?!\s*[\'"](?:' . implode('|', $excludes) . ')[\'"])';
+            $regex = "/@yield(\({$excludesRegex}(?:[^)(]+|(?1))*+\))(?![^<>]*<\/title>)/";
+        } else {
+            $regex = "/@yield(\((?:[^)(]+|(?1))*+\))(?![^<>]*<\/title>)/";
+        }
+
+        return $regex;
     }
 
     public function replacementCallback(array $matches): string

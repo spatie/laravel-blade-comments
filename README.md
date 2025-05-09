@@ -90,7 +90,18 @@ return [
          */
         'includes' => [
 
-        ]
+        ],
+        
+        /**
+         * Add sections you don't want to be affected by the package here.
+         * These sections will not have HTML comments added around @yield directives
+         * For example:
+         *  'header',
+         *  'message',
+         */
+        'sections' => [
+
+        ],
     ]
 ];
 ```
@@ -102,6 +113,10 @@ After the package is installed, you'll immediately see that HTML comments are in
 ## Excluding views
 Sometimes you might not want to have an HTML comment being wrapped around an include. For example when you use a partial to add some CSS to a page.
 In these cases you can add views to the `excludes.includes` array in the config file.
+
+## Excluding sections
+Sometimes you might not want HTML comments wrapping around `@yield` directives. For example when they're used within HTML attributes or meta tags.
+In these cases you can add sections to the `excludes.sections` array in the config file.
 
 ### Using your own Blade Commenters
 
