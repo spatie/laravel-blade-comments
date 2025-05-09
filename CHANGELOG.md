@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-blade-comments` will be documented in this file.
 
+## 1.4.0 - 2025-05-09
+
+### What's Changed
+
+* Add config option to exclude sections by @wvdongen in https://github.com/spatie/laravel-blade-comments/pull/37
+
+### New Contributors
+
+* @wvdongen made their first contribution in https://github.com/spatie/laravel-blade-comments/pull/37
+
+**Full Changelog**: https://github.com/spatie/laravel-blade-comments/compare/1.3.1...1.4.0
+
 ## 1.3.1 - 2025-02-21
 
 ### What's Changed
