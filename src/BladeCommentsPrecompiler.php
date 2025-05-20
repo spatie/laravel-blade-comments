@@ -10,21 +10,24 @@ class BladeCommentsPrecompiler
     public static function execute(string $bladeContent): string
     {
         foreach (self::commenters() as $commenter) {
-            if ($commenter instanceof BladeCommenterWithCallback) {
-                $bladeContent = preg_replace_callback(
-                    $commenter->pattern(),
-                    fn (array $matches) => $commenter->replacementCallback($matches),
-                    $bladeContent,
-                );
 
-                continue;
-            }
+            $bladeContent = $commenter->parse($bladeContent);
 
-            $bladeContent = preg_replace(
-                $commenter->pattern(),
-                $commenter->replacement(),
-                $bladeContent,
-            );
+//            if ($commenter instanceof BladeCommenterWithCallback) {
+//                $bladeContent = preg_replace_callback(
+//                    $commenter->pattern(),
+//                    fn (array $matches) => $commenter->replacementCallback($matches),
+//                    $bladeContent,
+//                );
+//
+//                continue;
+//            }
+
+//            $bladeContent = preg_replace(
+//                $commenter->pattern(),
+//                $commenter->replacement(),
+//                $bladeContent,
+//            );
         }
 
         return $bladeContent;

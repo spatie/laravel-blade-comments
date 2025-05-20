@@ -2,22 +2,27 @@
 
 namespace Spatie\BladeComments\Commenters\BladeCommenters;
 
-class IncludeIfCommenter implements BladeCommenter
+use Stillat\BladeParser\Document\Document;
+use Stillat\BladeParser\Nodes\DirectiveNode;
+
+class IncludeIfCommenter
 {
-    public function pattern(): string
-    {
-        $excludesRegex = '';
+    public function parse(string $bladeContent): string {
+        $document = Document::fromText($bladeContent);
+
         $excludes = config('blade-comments.excludes.includes', []);
 
-        if (count($excludes)) {
-            $excludesRegex = '(?!'.implode('|', $excludes).')';
+        foreach ($document->findDirectivesByName('includeIf') as $directive) {
+            /** @var DirectiveNode $directive */
+            $name = $directive->arguments->getArgValues()->get(0);
+
+            if (preg_match('/' .implode('|', $excludes).'/', str($name)->trim("'"))) {
+                continue;
+            }
+
+            $bladeContent = str_replace($directive->__toString(), "<!-- Start include: $name -->" . $directive->__toString() . "<!-- End include: $name -->", $bladeContent);
         }
 
-        return "/@includeIf\((?<q>[\'\"]){$excludesRegex}(.*?)\k<q>(,(.*))?\)/s";
-    }
-
-    public function replacement(): string
-    {
-        return '<!-- Start includeIf: $2 -->$0<!-- End includeIf: $2 -->';
+        return $bladeContent;
     }
 }
