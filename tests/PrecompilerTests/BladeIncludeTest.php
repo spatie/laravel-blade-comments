@@ -14,6 +14,25 @@ it('will add comments for includes with data', function () {
     assertMatchesHtmlSnapshot($renderedView);
 });
 
+// todo - fails
+ it('will add comments for includes with data - 2', function () {
+     $renderedView = view('includes.include.page-with-data-2')->render();
+
+     assertMatchesHtmlSnapshot($renderedView);
+ });
+
+it('will add comments for includes with data - 3', function () {
+    $renderedView = view('includes.include.page-with-data-3')->render();
+
+    assertMatchesHtmlSnapshot($renderedView);
+});
+
+it('will add comments for includes with data - 4', function () {
+    $renderedView = view('includes.include.page-with-data-4')->render();
+
+    assertMatchesHtmlSnapshot($renderedView);
+});
+
 it('should filter excluded includes', function () {
     config(['blade-comments.excludes.includes' => ['includes.exclude']]);
 
@@ -63,6 +82,32 @@ it('will add comments for includeUnless', function () {
 it('should filter excluded includeUnless', function () {
     config(['blade-comments.excludes.includes' => ['includes.exclude']]);
     $renderedView = view('includes.includeUnless.excludes')->render();
+
+    assertMatchesHtmlSnapshot($renderedView);
+});
+
+
+# Dynamic includes
+it('will add comments for dynamic includes', function () {
+    $renderedView = view('includes.include.dynamic.page')->render();
+
+    assertMatchesHtmlSnapshot($renderedView);
+});
+
+it('will add comments for dynamic includes in loop iterations', function () {
+    $renderedView = view('includes.include.dynamic.page-loop')->render();
+
+    assertMatchesHtmlSnapshot($renderedView);
+});
+
+it('will add comments for dynamic includes with ternary operators', function () {
+    $renderedView = view('includes.include.dynamic.page-ternary-includes')->render();
+
+    assertMatchesHtmlSnapshot($renderedView);
+});
+
+it('will add comments for dynamic includes with complex expressions', function () {
+    $renderedView = view('includes.include.dynamic.page-complex-expressions')->render();
 
     assertMatchesHtmlSnapshot($renderedView);
 });
