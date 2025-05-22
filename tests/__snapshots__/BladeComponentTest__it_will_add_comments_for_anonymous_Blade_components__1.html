@@ -1,0 +1,23 @@
+<html><body>
+<p>This is the test of the anonymous component
+
+<!-- Start component :path anonymous-component --></p>
+<div>
+    This is the anonymous component
+</div>
+<!-- End component :path anonymous-component -->
+
+Including it again
+
+<!-- Start component :path anonymous-component --><div>
+    This is the anonymous component
+</div>
+<!-- End component :path anonymous-component -->
+
+Non-anonymous components should be handled correctly as well
+
+<!-- Start component :path test-component --><div>
+    This is the Blade component
+</div>
+<!-- End component :path test-component -->
+</body></html>
