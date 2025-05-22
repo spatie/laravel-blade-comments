@@ -1,15 +1,16 @@
 <?php
 
 namespace Spatie\BladeComments\Commenters\BladeCommenters;
+
 use Illuminate\Support\Str;
 use Stillat\BladeParser\Document\Document;
 use Stillat\BladeParser\Nodes\DirectiveNode;
 use Stillat\BladeParser\Nodes\LiteralNode;
 
-class SectionCommenter {
-
+class SectionCommenter
+{
     protected static array $supportedDirectives = [
-        'yield'
+        'yield',
     ];
 
     protected string $startComment = '<!-- Start section: :name -->';
@@ -25,11 +26,9 @@ class SectionCommenter {
     public function parse(string $bladeContent): string
     {
         /** @var DirectiveNode $directiveNode */
-
         $document = Document::fromText($bladeContent);
 
-
-        foreach(self::$supportedDirectives as $directiveName) {
+        foreach (self::$supportedDirectives as $directiveName) {
 
             if (! $document->hasDirective($directiveName)) {
                 continue;
@@ -37,9 +36,7 @@ class SectionCommenter {
 
             foreach ($document->findDirectivesByName($directiveName) as &$directiveNode) {
 
-
                 $name = $this->getNodeName($directiveNode);
-
 
                 if ($this->isExcludedByConfig($name)) {
                     continue;
@@ -51,7 +48,6 @@ class SectionCommenter {
 
         return $document->toString();
     }
-
 
     private function startComment($name): string
     {
@@ -72,7 +68,7 @@ class SectionCommenter {
             return $directiveNode->toString();
         }
 
-        return $this->startComment($name) . $directiveNode->toString() . $this->endComment($name);
+        return $this->startComment($name).$directiveNode->toString().$this->endComment($name);
     }
 
     /**

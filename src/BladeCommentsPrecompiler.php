@@ -28,6 +28,7 @@ class BladeCommentsPrecompiler
             //                $bladeContent,
             //            );
         }
+
         return $bladeContent;
     }
 

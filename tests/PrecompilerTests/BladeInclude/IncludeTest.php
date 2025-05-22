@@ -14,11 +14,11 @@ it('will add comments for includes with data', function () {
     assertMatchesHtmlSnapshot($renderedView);
 });
 
- it('will add comments for includes with data - 2', function () {
-     $renderedView = view('includes.include.page-with-data-2')->render();
+it('will add comments for includes with data - 2', function () {
+    $renderedView = view('includes.include.page-with-data-2')->render();
 
-     assertMatchesHtmlSnapshot($renderedView);
- });
+    assertMatchesHtmlSnapshot($renderedView);
+});
 
 it('will add comments for includes with data - 3', function () {
     $renderedView = view('includes.include.page-with-data-3')->render();

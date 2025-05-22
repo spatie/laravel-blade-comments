@@ -1,17 +1,18 @@
 <?php
 
 namespace Spatie\BladeComments\Commenters\BladeCommenters;
+
 use Stillat\BladeParser\Document\Document;
 use Stillat\BladeParser\Nodes\DirectiveNode;
 
-class IncludeCommenter {
-
+class IncludeCommenter
+{
     protected static array $supportedDirectives = [
         'include',
         'includeIf',
         'includeWhen',
         'includeUnless',
-        'includeFirst'
+        'includeFirst',
     ];
 
     protected Document $document;
@@ -26,33 +27,33 @@ class IncludeCommenter {
     {
         $document = Document::fromText($bladeContent);
 
-        foreach(self::$supportedDirectives as $directiveName) {
+        foreach (self::$supportedDirectives as $directiveName) {
 
-          if (!$document->hasDirective($directiveName)) {
-            continue;
-          }
+            if (! $document->hasDirective($directiveName)) {
+                continue;
+            }
 
-          $bladeContent = $document
-            ->findDirectivesByName($directiveName)
-            ->reject(fn(DirectiveNode $node) => $this->isExcluded($this->getNodeName($node)))
-            ->reduce(function (string $content, DirectiveNode $node) use ($directiveName) {
-              return $this->addComments(
-                  $content,
-                  $node,
-                  $directiveName,
-                  $this->getNodeName($node)
-              );
-            }, $bladeContent);
+            $bladeContent = $document
+                ->findDirectivesByName($directiveName)
+                ->reject(fn (DirectiveNode $node) => $this->isExcluded($this->getNodeName($node)))
+                ->reduce(function (string $content, DirectiveNode $node) use ($directiveName) {
+                    return $this->addComments(
+                        $content,
+                        $node,
+                        $directiveName,
+                        $this->getNodeName($node)
+                    );
+                }, $bladeContent);
         }
 
         return $bladeContent;
     }
 
-  /**
-   * If the directive is: @include('example', [])
-   *
-   * This will return 'example'
-   */
+    /**
+     * If the directive is: @include('example', [])
+     *
+     * This will return 'example'
+     */
     protected function getNodeName(DirectiveNode $node): string
     {
         return $node->arguments->getArgValues()->get(0);
@@ -61,6 +62,7 @@ class IncludeCommenter {
     protected function addComments(string $content, DirectiveNode $node, string $directiveName, string $name): string
     {
         $comment = "<!-- Start {$directiveName}: {$name}-->{$node}<!-- End {$directiveName}: {$name}-->";
+
         return str_replace($node, $comment, $content);
     }
 

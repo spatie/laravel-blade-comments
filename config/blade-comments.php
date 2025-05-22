@@ -8,12 +8,12 @@ return [
      * various Blade directives.
      */
     'blade_commenters' => [
-//        Spatie\BladeComments\Commenters\BladeCommenters\BladeComponentCommenter::class,
-//        Spatie\BladeComments\Commenters\BladeCommenters\AnonymousBladeComponentCommenter::class,
+        //        Spatie\BladeComments\Commenters\BladeCommenters\BladeComponentCommenter::class,
+        //        Spatie\BladeComments\Commenters\BladeCommenters\AnonymousBladeComponentCommenter::class,
         Spatie\BladeComments\Commenters\BladeCommenters\ExtendsCommenter::class,
         Spatie\BladeComments\Commenters\BladeCommenters\IncludeCommenter::class,
 
-//        Spatie\BladeComments\Commenters\BladeCommenters\LivewireComponentCommenter::class,
+        //        Spatie\BladeComments\Commenters\BladeCommenters\LivewireComponentCommenter::class,
         Spatie\BladeComments\Commenters\BladeCommenters\LivewireDirectiveCommenter::class,
         Spatie\BladeComments\Commenters\BladeCommenters\SectionCommenter::class,
     ],
