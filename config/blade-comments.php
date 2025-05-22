@@ -10,14 +10,12 @@ return [
     'blade_commenters' => [
 //        Spatie\BladeComments\Commenters\BladeCommenters\BladeComponentCommenter::class,
 //        Spatie\BladeComments\Commenters\BladeCommenters\AnonymousBladeComponentCommenter::class,
-//        Spatie\BladeComments\Commenters\BladeCommenters\ExtendsCommenter::class,
+        Spatie\BladeComments\Commenters\BladeCommenters\ExtendsCommenter::class,
         Spatie\BladeComments\Commenters\BladeCommenters\IncludeCommenter::class,
-        Spatie\BladeComments\Commenters\BladeCommenters\IncludeIfCommenter::class,
-//        Spatie\BladeComments\Commenters\BladeCommenters\IncludeWhenCommenter::class,
-//        Spatie\BladeComments\Commenters\BladeCommenters\IncludeUnlessCommenter::class,
+
 //        Spatie\BladeComments\Commenters\BladeCommenters\LivewireComponentCommenter::class,
-//        Spatie\BladeComments\Commenters\BladeCommenters\LivewireDirectiveCommenter::class,
-//        Spatie\BladeComments\Commenters\BladeCommenters\SectionCommenter::class,
+        Spatie\BladeComments\Commenters\BladeCommenters\LivewireDirectiveCommenter::class,
+        Spatie\BladeComments\Commenters\BladeCommenters\SectionCommenter::class,
     ],
 
     /*
