@@ -2,7 +2,7 @@
 
 namespace Spatie\BladeComments\Commenters\BladeCommenters;
 
-use Illuminate\Support\Str;
+
 use Stillat\BladeParser\Document\Document;
 use Stillat\BladeParser\Nodes\DirectiveNode;
 use Stillat\BladeParser\Nodes\LiteralNode;
@@ -25,7 +25,6 @@ class SectionCommenter
 
     public function parse(string $bladeContent): string
     {
-        /** @var DirectiveNode $directiveNode */
         $document = Document::fromText($bladeContent);
 
         foreach (self::$supportedDirectives as $directiveName) {
@@ -34,41 +33,39 @@ class SectionCommenter
                 continue;
             }
 
-            foreach ($document->findDirectivesByName($directiveName) as &$directiveNode) {
+            /** @var DirectiveNode $node */
+            foreach ($document->findDirectivesByName($directiveName) as &$node) {
 
-                $name = $this->getNodeName($directiveNode);
+                $name = $this->getNodeName($node);
 
                 if ($this->isExcludedByConfig($name)) {
                     continue;
                 }
 
-                $directiveNode->sourceContent = $this->addComments($directiveNode, $name);
+                $node->sourceContent = $this->addComments($node);
             }
         }
 
         return $document->toString();
     }
 
-    private function startComment($name): string
+    private function htmlComment(DirectiveNode $node, string $part): string
     {
-        return Str::replace(':name', $name, $this->startComment);
+        return strtr(($part === 'start' ? $this->startComment : $this->endComment), [
+            ':name' => $this->getNodeName($node),
+        ]);
     }
 
-    private function endComment($name): string
-    {
-        return Str::replace(':name', $name, $this->endComment);
-    }
-
-    protected function addComments(DirectiveNode $directiveNode, string $name): string
+    protected function addComments(DirectiveNode $node): string
     {
         // Do not add comments if it is part of the <title> tag
-        if ($directiveNode->getNextNode() instanceof LiteralNode
-            && preg_match('/^\s*<\/title>/', $directiveNode->getNextNode())
+        if ($node->getNextNode() instanceof LiteralNode
+            && preg_match('/^\s*<\/title>/', $node->getNextNode())
         ) {
-            return $directiveNode->toString();
+            return $node->toString();
         }
 
-        return $this->startComment($name).$directiveNode->toString().$this->endComment($name);
+        return $this->htmlComment($node, 'start')  . $node->toString() . $this->htmlComment($node, 'end');
     }
 
     /**

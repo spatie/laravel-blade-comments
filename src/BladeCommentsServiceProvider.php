@@ -4,6 +4,7 @@ namespace Spatie\BladeComments;
 
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\View;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -20,7 +21,7 @@ class BladeCommentsServiceProvider extends PackageServiceProvider
     {
         if (! config('blade-comments.enable')) {
             return;
-        }
+        };
 
         $this
             ->registerMiddleware()
@@ -31,7 +32,8 @@ class BladeCommentsServiceProvider extends PackageServiceProvider
     {
         $precompilerClass = config('blade-comments.precompiler');
 
-        Blade::precompiler(fn (string $string) => $precompilerClass::execute($string));
+        Blade::prepareStringsForCompilationUsing(fn (string $string) => $precompilerClass::execute($string));
+//        Blade::precompiler(fn (string $string) => $precompilerClass::execute($string));
 
         return $this;
     }

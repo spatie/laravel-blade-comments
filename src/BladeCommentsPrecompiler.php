@@ -7,10 +7,15 @@ use Spatie\BladeComments\Commenters\BladeCommenters\BladeCommenterWithCallback;
 
 class BladeCommentsPrecompiler
 {
+
     public static function execute(string $bladeContent): string
     {
+
+//        dump($bladeContent); die;
+
         foreach (self::commenters() as $commenter) {
             $bladeContent = $commenter->parse($bladeContent);
+
 
             //            if ($commenter instanceof BladeCommenterWithCallback) {
             //                $bladeContent = preg_replace_callback(

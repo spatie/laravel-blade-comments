@@ -11,7 +11,9 @@ class ExtendsCommenter
         'extends',
     ];
 
-    protected string $startComment = '<!-- View :directiveName: :nodeName -->';
+    protected string $startComment = '<!-- View start: :name -->';
+
+    protected string $endComment = '<!-- View end: :name -->';
 
     public function __construct(protected array $excludes = [])
     {
@@ -20,7 +22,7 @@ class ExtendsCommenter
 
     public function parse(string $bladeContent): string
     {
-        /** @var DirectiveNode $directiveNode */
+        /** @var DirectiveNode $node */
         $document = Document::fromText($bladeContent);
 
         foreach (self::$supportedDirectives as $directiveName) {
@@ -29,32 +31,31 @@ class ExtendsCommenter
                 continue;
             }
 
-            foreach ($document->findDirectivesByName($directiveName) as &$directiveNode) {
+            foreach ($document->findDirectivesByName($directiveName) as &$node) {
 
-                $nodeName = $this->getNodeName($directiveNode);
+                $nodeName = $this->getNodeName($node);
 
                 if ($this->isExcludedByConfig($nodeName)) {
                     continue;
                 }
 
-                $directiveNode->sourceContent = $this->addComments($directiveName, $directiveNode, $nodeName);
+                $node->sourceContent = $this->addComments($node);
             }
         }
 
         return $document->toString();
     }
 
-    private function startComment($directiveName, $name): string
+    private function htmlComment(DirectiveNode $node, string $part): string
     {
-        return strtr($this->startComment, [
-            ':directiveName' => $directiveName,
-            ':nodeName' => $name,
+        return strtr(($part === 'start' ? $this->startComment : $this->endComment), [
+            ':name' => $this->getNodeName($node),
         ]);
     }
 
-    protected function addComments(string $directiveName, DirectiveNode $directiveNode, string $nodeName): string
+    public function addComments(DirectiveNode $node): string
     {
-        return $this->startComment($directiveName, $nodeName).$directiveNode->toString();
+        return $this->htmlComment($node, 'start') . $node->toString();
     }
 
     /**

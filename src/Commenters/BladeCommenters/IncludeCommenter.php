@@ -7,6 +7,7 @@ use Stillat\BladeParser\Nodes\DirectiveNode;
 
 class IncludeCommenter
 {
+
     protected static array $supportedDirectives = [
         'include',
         'includeIf',
@@ -15,7 +16,9 @@ class IncludeCommenter
         'includeFirst',
     ];
 
-    protected Document $document;
+    protected string $startComment = '<!-- Start :directive: :name -->';
+
+    protected string $endComment = '<!-- End :directive: :name -->';
 
     public function __construct(
         protected array $excludes = []
@@ -25,6 +28,7 @@ class IncludeCommenter
 
     public function parse(string $bladeContent): string
     {
+        /** @var DirectiveNode $node */
         $document = Document::fromText($bladeContent);
 
         foreach (self::$supportedDirectives as $directiveName) {
@@ -33,21 +37,21 @@ class IncludeCommenter
                 continue;
             }
 
-            $bladeContent = $document
-                ->findDirectivesByName($directiveName)
-                ->reject(fn (DirectiveNode $node) => $this->isExcluded($this->getNodeName($node)))
-                ->reduce(function (string $content, DirectiveNode $node) use ($directiveName) {
-                    return $this->addComments(
-                        $content,
-                        $node,
-                        $directiveName,
-                        $this->getNodeName($node)
-                    );
-                }, $bladeContent);
+            foreach ($document->findDirectivesByName($directiveName) as &$node) {
+
+                $name = $this->getNodeName($node);
+
+                if ($this->isExcludedByConfig($name)) {
+                    continue;
+                }
+
+                $node->sourceContent = $this->addComments($node, $directiveName);
+            }
         }
 
-        return $bladeContent;
+        return $document->toString();
     }
+
 
     /**
      * If the directive is: @include('example', [])
@@ -59,14 +63,20 @@ class IncludeCommenter
         return $node->arguments->getArgValues()->get(0);
     }
 
-    protected function addComments(string $content, DirectiveNode $node, string $directiveName, string $name): string
+    private function htmlComment(DirectiveNode $node, string $directiveName, string $part = 'start'): string
     {
-        $comment = "<!-- Start {$directiveName}: {$name}-->{$node}<!-- End {$directiveName}: {$name}-->";
-
-        return str_replace($node, $comment, $content);
+        return strtr(($part === 'start' ? $this->startComment : $this->endComment), [
+            ':directive' => $directiveName,
+            ':name' => $this->getNodeName($node),
+        ]);
     }
 
-    protected function isExcluded(string $name): bool
+    public function addComments(DirectiveNode $node, $directiveName): string
+    {
+        return $this->htmlComment($node, $directiveName, 'start') . $node->toString() . $this->htmlComment($node, $directiveName, 'end');
+    }
+
+    protected function isExcludedByConfig(string $name): bool
     {
         if (empty($this->excludes)) {
             return false;
