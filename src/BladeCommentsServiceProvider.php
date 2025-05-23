@@ -32,8 +32,7 @@ class BladeCommentsServiceProvider extends PackageServiceProvider
     {
         $precompilerClass = config('blade-comments.precompiler');
 
-        Blade::prepareStringsForCompilationUsing(fn (string $string) => $precompilerClass::execute($string));
-//        Blade::precompiler(fn (string $string) => $precompilerClass::execute($string));
+        Blade::precompiler(fn (string $string) => $precompilerClass::execute($string));
 
         return $this;
     }

@@ -2,15 +2,38 @@
 
 namespace Spatie\BladeComments\Commenters\BladeCommenters;
 
-class LivewireComponentCommenter implements BladeCommenter
-{
-    public function pattern(): string
-    {
-        return "/(<livewire:(\w+)[^>]*\s*\/?>)/";
-    }
+use Livewire\Mechanisms\ComponentRegistry;
+use Stillat\BladeParser\Document\Document;
+use Stillat\BladeParser\Nodes\Components\ComponentNode;
 
-    public function replacement(): string
+class LivewireComponentCommenter
+{
+    public function parse(string $bladeContent): string
     {
-        return '<!-- Start Livewire component: $2 -->$1<!-- End Livewire component: $2 -->';
+        $document = Document::fromText($bladeContent, null, ['livewire']);
+
+        if (! $document->hasAnyComponents()) {
+            return $bladeContent;
+        }
+
+        $registry =  app(ComponentRegistry::class);
+
+        $document
+            ->getComponents()
+            ->filter(fn (ComponentNode $node) => $node->componentPrefix == 'livewire')
+            ->transform(function (ComponentNode $node) use ($registry) {
+
+                $name = $node->getName();
+                $class = $registry->getClass($name);
+
+                $start = "<!-- Start Livewire component: '{$class}' '{$name}' -->";
+                $end   = "<!-- End Livewire component: '{$class}' '{$name}' -->";
+
+                $node->content = $start . $node->toString() . $end ;
+
+                return $node;
+            });
+
+        return $document->toString();
     }
 }

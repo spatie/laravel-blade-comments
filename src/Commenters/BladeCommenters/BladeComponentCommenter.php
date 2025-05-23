@@ -7,10 +7,9 @@ use Stillat\BladeParser\Nodes\Components\ComponentNode;
 
 class BladeComponentCommenter
 {
+    protected string $startComment = '<!-- Start :directive :class :name -->';
 
-    protected string $startComment = '<!-- Start :directive :path :name -->';
-
-    protected string $endComment = '<!-- End :directive :path :name -->';
+    protected string $endComment = '<!-- End :directive :class :name -->';
 
     public function parse(string $bladeContent): string
     {
@@ -34,12 +33,12 @@ class BladeComponentCommenter
     {
         $directive = 'component';
         $name = $node->getName();
-        $path = app('blade.compiler')->getClassComponentAliases()[$name] ?? '';
+        $class = app('blade.compiler')->getClassComponentAliases()[$name] ?? '';
 
         return strtr(($part === 'start' ? $this->startComment : $this->endComment), [
             ':directive' => $directive,
-            ':path' => str($path)->wrap("'"),
-            ':name' => str($name)->wrap("'"),
+            ':path' => str($class)->wrap("'"),
+            ':name' => str($class)->wrap("'"),
         ]);
     }
 
