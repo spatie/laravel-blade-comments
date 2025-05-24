@@ -2,15 +2,39 @@
 
 namespace Spatie\BladeComments\Commenters\BladeCommenters;
 
-class LivewireDirectiveCommenter implements BladeCommenter
-{
-    public function pattern(): string
-    {
-        return "/@livewire\([\'\"](.*?)['\"]\)/";
-    }
+use Livewire\Mechanisms\ComponentRegistry;
+use Stillat\BladeParser\Document\Document;
+use Stillat\BladeParser\Document\DocumentOptions;
+use Stillat\BladeParser\Nodes\DirectiveNode;
 
-    public function replacement(): string
+class LivewireDirectiveCommenter
+{
+    public function parse(string $bladeContent): string
     {
-        return '<!-- Start Livewire component: $1 -->$0<!-- End Livewire component: $1 -->';
+        $options = new DocumentOptions(false, ['livewire']);
+        $document = Document::fromText($bladeContent, null, [], $options);
+
+        if (! $document->hasAnyDirectives()) {
+            return $bladeContent;
+        }
+
+        $registry =  app(ComponentRegistry::class);
+
+        $document
+            ->getDirectives()
+            ->transform(function (DirectiveNode $node) use ($registry) {
+
+                $name = str($node->arguments->getArgValues()->get(0))->trim('\'"')->toString();
+                $class = $registry->getClass($name);
+
+                $start = "<!-- Start Livewire component: '{$class}' '{$name}' -->";
+                $end   = "<!-- End Livewire component: '{$class}' '{$name}' -->";
+
+                $node->sourceContent = $start . $node->toString() . $end ;
+
+                return $node;
+            });
+
+        return $document->toString();
     }
 }
