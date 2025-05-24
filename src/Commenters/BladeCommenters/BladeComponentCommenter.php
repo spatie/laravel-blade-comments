@@ -37,8 +37,8 @@ class BladeComponentCommenter
 
         return strtr(($part === 'start' ? $this->startComment : $this->endComment), [
             ':directive' => $directive,
-            ':path' => str($class)->wrap("'"),
-            ':name' => str($class)->wrap("'"),
+            ':class' => str($class)->wrap("'"),
+            ':name' => str($name)->wrap("'"),
         ]);
     }
 
