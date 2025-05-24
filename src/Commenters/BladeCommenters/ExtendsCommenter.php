@@ -55,7 +55,7 @@ class ExtendsCommenter
 
     public function addComments(DirectiveNode $node): string
     {
-        return $this->htmlComment($node, 'start') . $node->toString();
+        return $this->htmlComment($node, 'start').$node->toString();
     }
 
     /**

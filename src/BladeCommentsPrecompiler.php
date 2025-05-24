@@ -9,6 +9,7 @@ class BladeCommentsPrecompiler
         foreach (self::commenters() as $commenter) {
             $bladeContent = $commenter->parse($bladeContent);
         }
+
         return $bladeContent;
     }
 

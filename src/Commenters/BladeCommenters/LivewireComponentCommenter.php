@@ -16,7 +16,7 @@ class LivewireComponentCommenter
             return $bladeContent;
         }
 
-        $registry =  app(ComponentRegistry::class);
+        $registry = app(ComponentRegistry::class);
 
         $document
             ->getComponents()
@@ -27,9 +27,9 @@ class LivewireComponentCommenter
                 $class = $registry->getClass($name);
 
                 $start = "<!-- Start Livewire component: '{$class}' '{$name}' -->";
-                $end   = "<!-- End Livewire component: '{$class}' '{$name}' -->";
+                $end = "<!-- End Livewire component: '{$class}' '{$name}' -->";
 
-                $node->content = $start . $node->toString() . $end ;
+                $node->content = $start.$node->toString().$end;
 
                 return $node;
             });

@@ -7,7 +7,6 @@ use Stillat\BladeParser\Nodes\DirectiveNode;
 
 class IncludeCommenter
 {
-
     protected static array $supportedDirectives = [
         'include',
         'includeIf',
@@ -52,7 +51,6 @@ class IncludeCommenter
         return $document->toString();
     }
 
-
     /**
      * If the directive is: @include('example', [])
      *
@@ -73,7 +71,7 @@ class IncludeCommenter
 
     public function addComments(DirectiveNode $node, $directiveName): string
     {
-        return $this->htmlComment($node, $directiveName, 'start') . $node->toString() . $this->htmlComment($node, $directiveName, 'end');
+        return $this->htmlComment($node, $directiveName, 'start').$node->toString().$this->htmlComment($node, $directiveName, 'end');
     }
 
     protected function isExcludedByConfig(string $name): bool
