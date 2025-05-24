@@ -19,15 +19,12 @@ class IncludeCommenter
 
     protected string $endComment = '<!-- End :directive: :name -->';
 
-    public function __construct(
-        protected array $excludes = []
-    ) {
+    public function __construct(protected array $excludes = []) {
         $this->excludes = config('blade-comments.excludes.includes', []);
     }
 
     public function parse(string $bladeContent): string
     {
-        /** @var DirectiveNode $node */
         $document = Document::fromText($bladeContent);
 
         foreach (self::$supportedDirectives as $directiveName) {
@@ -36,16 +33,12 @@ class IncludeCommenter
                 continue;
             }
 
-            foreach ($document->findDirectivesByName($directiveName) as &$node) {
-
-                $name = $this->getNodeName($node);
-
-                if ($this->isExcludedByConfig($name)) {
-                    continue;
-                }
-
-                $node->sourceContent = $this->addComments($node, $directiveName);
-            }
+            $document->findDirectivesByName($directiveName)
+                ->filter(fn (DirectiveNode $node) => !$this->isExcludedByConfig($this->getNodeName($node)))
+                ->transform(function (DirectiveNode $node) use ($directiveName) {
+                    $node->sourceContent = $this->addComments($node, $directiveName);
+                    return $node;
+                });
         }
 
         return $document->toString();
@@ -61,7 +54,7 @@ class IncludeCommenter
         return $node->arguments->getArgValues()->get(0);
     }
 
-    private function htmlComment(DirectiveNode $node, string $directiveName, string $part = 'start'): string
+    protected function htmlComment(DirectiveNode $node, string $directiveName, string $part = 'start'): string
     {
         return strtr(($part === 'start' ? $this->startComment : $this->endComment), [
             ':directive' => $directiveName,
@@ -69,7 +62,7 @@ class IncludeCommenter
         ]);
     }
 
-    public function addComments(DirectiveNode $node, $directiveName): string
+    protected function addComments(DirectiveNode $node, $directiveName): string
     {
         return $this->htmlComment($node, $directiveName, 'start').$node->toString().$this->htmlComment($node, $directiveName, 'end');
     }

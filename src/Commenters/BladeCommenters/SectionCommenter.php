@@ -16,9 +16,7 @@ class SectionCommenter
 
     protected string $endComment = '<!-- End section: :name -->';
 
-    public function __construct(
-        protected array $excludes = []
-    ) {
+    public function __construct(protected array $excludes = []) {
         $this->excludes = config('blade-comments.excludes.sections', []);
     }
 
@@ -27,28 +25,22 @@ class SectionCommenter
         $document = Document::fromText($bladeContent);
 
         foreach (self::$supportedDirectives as $directiveName) {
-
             if (! $document->hasDirective($directiveName)) {
                 continue;
             }
 
-            /** @var DirectiveNode $node */
-            foreach ($document->findDirectivesByName($directiveName) as &$node) {
-
-                $name = $this->getNodeName($node);
-
-                if ($this->isExcludedByConfig($name)) {
-                    continue;
-                }
-
-                $node->sourceContent = $this->addComments($node);
-            }
+            $document->findDirectivesByName($directiveName)
+                ->filter(fn (DirectiveNode $node) => !$this->isExcludedByConfig($this->getNodeName($node)))
+                ->transform(function (DirectiveNode $node) {
+                    $node->sourceContent = $this->addComments($node);
+                    return $node;
+                });
         }
 
         return $document->toString();
     }
 
-    private function htmlComment(DirectiveNode $node, string $part): string
+    protected function htmlComment(DirectiveNode $node, string $part): string
     {
         return strtr(($part === 'start' ? $this->startComment : $this->endComment), [
             ':name' => $this->getNodeName($node),

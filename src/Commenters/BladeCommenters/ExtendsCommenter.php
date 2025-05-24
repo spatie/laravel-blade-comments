@@ -22,38 +22,32 @@ class ExtendsCommenter
 
     public function parse(string $bladeContent): string
     {
-        /** @var DirectiveNode $node */
         $document = Document::fromText($bladeContent);
 
         foreach (self::$supportedDirectives as $directiveName) {
-
             if (! $document->hasDirective($directiveName)) {
                 continue;
             }
 
-            foreach ($document->findDirectivesByName($directiveName) as &$node) {
-
-                $nodeName = $this->getNodeName($node);
-
-                if ($this->isExcludedByConfig($nodeName)) {
-                    continue;
-                }
-
-                $node->sourceContent = $this->addComments($node);
-            }
+            $document->findDirectivesByName($directiveName)
+                ->filter(fn (DirectiveNode $node) => !$this->isExcludedByConfig($this->getNodeName($node)))
+                ->transform(function (DirectiveNode $node) {
+                    $node->sourceContent = $this->addComments($node);
+                    return $node;
+                });
         }
 
         return $document->toString();
     }
 
-    private function htmlComment(DirectiveNode $node, string $part): string
+    protected function htmlComment(DirectiveNode $node, string $part): string
     {
         return strtr(($part === 'start' ? $this->startComment : $this->endComment), [
             ':name' => $this->getNodeName($node),
         ]);
     }
 
-    public function addComments(DirectiveNode $node): string
+    protected function addComments(DirectiveNode $node): string
     {
         return $this->htmlComment($node, 'start').$node->toString();
     }

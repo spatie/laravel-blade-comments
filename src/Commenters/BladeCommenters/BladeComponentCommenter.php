@@ -23,14 +23,13 @@ class BladeComponentCommenter
             ->getComponents()
             ->transform(function (ComponentNode $node) {
                 $node->content = $this->addComments($node);
-
                 return $node;
             });
 
         return $document->toString();
     }
 
-    private function htmlComment(ComponentNode $node, string $part = 'start'): string
+    protected function htmlComment(ComponentNode $node, string $part = 'start'): string
     {
         $directive = 'component';
         $name = $node->getName();
@@ -43,7 +42,7 @@ class BladeComponentCommenter
         ]);
     }
 
-    public function addComments(ComponentNode $node): string
+    protected function addComments(ComponentNode $node): string
     {
         return $this->htmlComment($node, 'start').$node->toString().$this->htmlComment($node, 'end');
     }

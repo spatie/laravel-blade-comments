@@ -11,6 +11,7 @@ class LivewireDirectiveCommenter
 {
     public function parse(string $bladeContent): string
     {
+        // Add custom directive
         $options = new DocumentOptions(false, ['livewire']);
         $document = Document::fromText($bladeContent, null, [], $options);
 
@@ -18,6 +19,7 @@ class LivewireDirectiveCommenter
             return $bladeContent;
         }
 
+        // Get the Livewire component registry to obtain the component class names
         $registry = app(ComponentRegistry::class);
 
         $document
