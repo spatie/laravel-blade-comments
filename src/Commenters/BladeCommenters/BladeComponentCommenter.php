@@ -23,6 +23,7 @@ class BladeComponentCommenter
             ->getComponents()
             ->transform(function (ComponentNode $node) {
                 $node->content = $this->addComments($node);
+
                 return $node;
             });
 

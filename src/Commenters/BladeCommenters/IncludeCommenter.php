@@ -19,7 +19,8 @@ class IncludeCommenter
 
     protected string $endComment = '<!-- End :directive: :name -->';
 
-    public function __construct(protected array $excludes = []) {
+    public function __construct(protected array $excludes = [])
+    {
         $this->excludes = config('blade-comments.excludes.includes', []);
     }
 
@@ -34,9 +35,10 @@ class IncludeCommenter
             }
 
             $document->findDirectivesByName($directiveName)
-                ->filter(fn (DirectiveNode $node) => !$this->isExcludedByConfig($this->getNodeName($node)))
+                ->filter(fn (DirectiveNode $node) => ! $this->isExcludedByConfig($this->getNodeName($node)))
                 ->transform(function (DirectiveNode $node) use ($directiveName) {
                     $node->sourceContent = $this->addComments($node, $directiveName);
+
                     return $node;
                 });
         }

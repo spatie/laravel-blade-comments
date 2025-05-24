@@ -30,9 +30,10 @@ class ExtendsCommenter
             }
 
             $document->findDirectivesByName($directiveName)
-                ->filter(fn (DirectiveNode $node) => !$this->isExcludedByConfig($this->getNodeName($node)))
+                ->filter(fn (DirectiveNode $node) => ! $this->isExcludedByConfig($this->getNodeName($node)))
                 ->transform(function (DirectiveNode $node) {
                     $node->sourceContent = $this->addComments($node);
+
                     return $node;
                 });
         }
