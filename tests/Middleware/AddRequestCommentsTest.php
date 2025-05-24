@@ -5,9 +5,9 @@ namespace Tests\Middleware;
 use Illuminate\Support\Facades\Route;
 use Spatie\BladeComments\Http\Middleware\AddRequestComments;
 
-describe('Comment Generation', function() {
+describe('Comment Generation', function () {
 
-    it('adds view and route comments to HTML responses', function() {
+    it('adds view and route comments to HTML responses', function () {
 
         Route::view('test-route', 'includes.include.page')
             ->middleware(AddRequestComments::class);
@@ -19,8 +19,8 @@ describe('Comment Generation', function() {
             ->toContain('<!-- Route: \Illuminate\Routing\ViewController -->');
     });
 
-    it('handles closure routes', function() {
-        Route::get('closure-route', fn() => view('includes.include.page'))
+    it('handles closure routes', function () {
+        Route::get('closure-route', fn () => view('includes.include.page'))
             ->middleware(AddRequestComments::class);
 
         $response = $this->get('closure-route')->content();
@@ -31,10 +31,10 @@ describe('Comment Generation', function() {
     });
 });
 
-describe('Response Types', function() {
+describe('Response Types', function () {
 
-    it('ignores non-HTML responses', function() {
-        Route::get('route-json', fn() => response()->json(['test' => true]))
+    it('ignores non-HTML responses', function () {
+        Route::get('route-json', fn () => response()->json(['test' => true]))
             ->middleware(AddRequestComments::class);
 
         $response = $this->get('route-json');
@@ -42,14 +42,13 @@ describe('Response Types', function() {
         expect($response->content())->not->toContain('<!--');
     });
 
-
     /**
      * This test verifies that the middleware properly handles responses with explicitly
      * set Content-Type headers (including charset information), rather than relying solely
      * on Laravel's automatic Content-Type determination.
      */
-    it('handles responses with different content types', function() {
-        Route::get('test-route', function() {
+    it('handles responses with different content types', function () {
+        Route::get('test-route', function () {
             return response(view('includes.include.page'))
                 ->header('Content-Type', 'text/html; charset=UTF-8');
         })->middleware(AddRequestComments::class);
@@ -60,7 +59,7 @@ describe('Response Types', function() {
     });
 });
 
-describe('Error Handling', function() {
+describe('Error Handling', function () {
 
     /*
      * This test verifies the middleware's resilience when handling responses
@@ -72,11 +71,12 @@ describe('Error Handling', function() {
      * - Custom middleware that replaces response properties
      * - Responses created manually without using the standard view rendering
      */
-    it('gracefully handles responses without valid view objects', function() {
-        Route::get('custom-response-route', function() {
+    it('gracefully handles responses without valid view objects', function () {
+        Route::get('custom-response-route', function () {
             $response = new \Illuminate\Http\Response('Custom HTML content');
-            $response->original = new \stdClass(); // Object without name() method
+            $response->original = new \stdClass; // Object without name() method
             $response->header('Content-Type', 'text/html');
+
             return $response;
         })->middleware(AddRequestComments::class);
 
@@ -92,8 +92,8 @@ describe('Error Handling', function() {
      * When returning raw string content, no comments should be added
      * because the response's 'original' property is a string, not an object
      */
-    it('skips adding comments to raw string responses', function() {
-        Route::get('test-route', function() {
+    it('skips adding comments to raw string responses', function () {
+        Route::get('test-route', function () {
             return response('Raw content')->header('Content-Type', 'text/html');
         })->middleware(AddRequestComments::class);
 
@@ -104,13 +104,13 @@ describe('Error Handling', function() {
 
 });
 
-describe('Comment Configuration', function() {
-    it('respects custom commenters configuration', function() {
+describe('Comment Configuration', function () {
+    it('respects custom commenters configuration', function () {
         config([
             'blade-comments.enable' => true,
             'blade-comments.request_commenters' => [
                 \Spatie\BladeComments\Commenters\RequestCommenters\ViewCommenter::class,
-            ]
+            ],
         ]);
 
         Route::view('test-route', 'includes.include.page')
