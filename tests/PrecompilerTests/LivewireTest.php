@@ -10,10 +10,10 @@ it('will add comments for Livewire components', function () {
     assertMatchesHtmlSnapshot($renderedView);
 });
 
-//it('will add comments for Livewire directives', function () {
+// it('will add comments for Livewire directives', function () {
 //    $renderedView = view('livewire.page')->render();
 //
 //    $renderedView = $this->preparedLivewireHtmlForSnapshot($renderedView);
 //
 //    assertMatchesHtmlSnapshot($renderedView);
-//});
+// });

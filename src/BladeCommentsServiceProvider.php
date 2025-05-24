@@ -20,7 +20,7 @@ class BladeCommentsServiceProvider extends PackageServiceProvider
     {
         if (! config('blade-comments.enable')) {
             return;
-        };
+        }
 
         $this
             ->registerMiddleware()

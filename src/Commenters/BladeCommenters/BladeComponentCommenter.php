@@ -23,6 +23,7 @@ class BladeComponentCommenter
             ->getComponents()
             ->transform(function (ComponentNode $node) {
                 $node->content = $this->addComments($node);
+
                 return $node;
             });
 
@@ -44,7 +45,6 @@ class BladeComponentCommenter
 
     public function addComments(ComponentNode $node): string
     {
-        return $this->htmlComment($node, 'start') . $node->toString() . $this->htmlComment($node, 'end');
+        return $this->htmlComment($node, 'start').$node->toString().$this->htmlComment($node, 'end');
     }
-
 }

@@ -2,7 +2,6 @@
 
 namespace Spatie\BladeComments\Commenters\BladeCommenters;
 
-
 use Stillat\BladeParser\Document\Document;
 use Stillat\BladeParser\Nodes\DirectiveNode;
 use Stillat\BladeParser\Nodes\LiteralNode;
@@ -65,7 +64,7 @@ class SectionCommenter
             return $node->toString();
         }
 
-        return $this->htmlComment($node, 'start')  . $node->toString() . $this->htmlComment($node, 'end');
+        return $this->htmlComment($node, 'start').$node->toString().$this->htmlComment($node, 'end');
     }
 
     /**
