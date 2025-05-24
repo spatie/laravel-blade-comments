@@ -14,6 +14,10 @@ class ViewCommenter implements RequestCommenter
             return null;
         }
 
+        if (! is_object($response->original) || ! method_exists($response->original, 'name')) {
+            return null;
+        }
+
         $viewName = $response->original->name();
 
         return "<!-- View: {$viewName} -->";
