@@ -2,6 +2,7 @@
 
 namespace Spatie\BladeComments\Commenters\BladeCommenters;
 
+use Illuminate\Support\Arr;
 use Stillat\BladeParser\Document\Document;
 use Stillat\BladeParser\Nodes\Components\ComponentNode;
 
@@ -34,7 +35,7 @@ class BladeComponentCommenter
     {
         $directive = 'component';
         $name = $node->getName();
-        $class = app('blade.compiler')->getClassComponentAliases()[$name] ?? '';
+        $class = Arr::get(app('blade.compiler')->getClassComponentAliases(), $name, '');
 
         return strtr(($part === 'start' ? $this->startComment : $this->endComment), [
             ':directive' => $directive,
