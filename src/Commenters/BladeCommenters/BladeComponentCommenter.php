@@ -35,12 +35,12 @@ class BladeComponentCommenter
 
                 if ($node->isSelfClosing || ! $node->isClosingTag) {
                     $start = $this->htmlComment($node, 'start');
-                    $node->content = $start . $node->toString();
+                    $node->content = $start.$node->toString();
                 }
 
                 if ($node->isSelfClosing || $node->isClosingTag) {
                     $end = $this->htmlComment($node, 'end');
-                    $node->content = $node->content . $end;
+                    $node->content = $node->content.$end;
                 }
 
                 return $node;
@@ -62,12 +62,12 @@ class BladeComponentCommenter
 
         $name = $node->getName();
         if ($name instanceof ParameterNode) {
-            $id .= ' - ' . $name->value;
+            $id .= ' - '.$name->value;
         }
 
         $parts[] = $id;
         $action = $part === 'start' ? 'Start' : 'End';
 
-        return "<!-- $action component: '" . implode("' '", $parts) . "' -->";
+        return "<!-- $action component '".implode("' '", $parts)."' -->";
     }
 }
