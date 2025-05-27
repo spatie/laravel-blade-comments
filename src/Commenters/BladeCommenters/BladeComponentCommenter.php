@@ -2,15 +2,22 @@
 
 namespace Spatie\BladeComments\Commenters\BladeCommenters;
 
-use Illuminate\Support\Arr;
+use Illuminate\View\Compilers\ComponentTagCompiler;
 use Stillat\BladeParser\Document\Document;
 use Stillat\BladeParser\Nodes\Components\ComponentNode;
+use Stillat\BladeParser\Nodes\Components\ParameterNode;
 
 class BladeComponentCommenter
 {
-    protected string $startComment = '<!-- Start :directive :class :name -->';
-
-    protected string $endComment = '<!-- End :directive :class :name -->';
+    public function __construct()
+    {
+        $compiler = app('blade.compiler');
+        $this->tagCompiler = new ComponentTagCompiler(
+            $compiler->getClassComponentAliases(),
+            $compiler->getClassComponentNamespaces(),
+            $compiler
+        );
+    }
 
     public function parse(string $bladeContent): string
     {
@@ -23,7 +30,18 @@ class BladeComponentCommenter
         $document
             ->getComponents()
             ->transform(function (ComponentNode $node) {
-                $node->content = $this->addComments($node);
+                // For components blade parser doesn't keep track of the corresponding opening and closing tags
+                // The property isClosedBy and openedBy are not set (always null).
+
+                if ($node->isSelfClosing || ! $node->isClosingTag) {
+                    $start = $this->htmlComment($node, 'start');
+                    $node->content = $start . $node->toString();
+                }
+
+                if ($node->isSelfClosing || $node->isClosingTag) {
+                    $end = $this->htmlComment($node, 'end');
+                    $node->content = $node->content . $end;
+                }
 
                 return $node;
             });
@@ -33,19 +51,23 @@ class BladeComponentCommenter
 
     protected function htmlComment(ComponentNode $node, string $part = 'start'): string
     {
-        $directive = 'component';
+        $parts = [];
+        $id = $node->getTagName();
+
+        try {
+            $parts[] = $this->tagCompiler->componentClass($id);
+        } catch (\Exception $e) {
+            // Silent fail
+        }
+
         $name = $node->getName();
-        $class = Arr::get(app('blade.compiler')->getClassComponentAliases(), $name, '');
+        if ($name instanceof ParameterNode) {
+            $id .= ' - ' . $name->value;
+        }
 
-        return strtr(($part === 'start' ? $this->startComment : $this->endComment), [
-            ':directive' => $directive,
-            ':class' => str($class)->wrap("'"),
-            ':name' => str($name)->wrap("'"),
-        ]);
-    }
+        $parts[] = $id;
+        $action = $part === 'start' ? 'Start' : 'End';
 
-    protected function addComments(ComponentNode $node): string
-    {
-        return $this->htmlComment($node, 'start').$node->toString().$this->htmlComment($node, 'end');
+        return "<!-- $action component '" . implode("' '", $parts) . "' -->";
     }
 }
