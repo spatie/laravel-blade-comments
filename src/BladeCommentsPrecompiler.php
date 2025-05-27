@@ -16,7 +16,7 @@ class BladeCommentsPrecompiler
         }
 
         if ($path) {
-            $bladeContent = "\n<!-- Start blade view: $path -->\n" . $bladeContent;
+            $bladeContent = "\n<!-- Start blade view: $path -->\n".$bladeContent;
         }
 
         foreach (self::commenters() as $commenter) {
@@ -24,7 +24,7 @@ class BladeCommentsPrecompiler
         }
 
         if ($path) {
-            return $bladeContent . "\n<!-- End blade view: $path -->\n";
+            return $bladeContent."\n<!-- End blade view: $path -->\n";
         }
 
         return $bladeContent;
