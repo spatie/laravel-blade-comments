@@ -34,6 +34,7 @@ class TestCase extends Orchestra
     {
         config()->set('app.key', '6rE9Nz59bGRbeMATftriyQjrpF7DcOQm');
         config()->set('blade-comments.enable', true);
+        config()->set('blade-comments.blade_paths', false);
 
         View::addLocation(__DIR__.'/TestSupport/views');
 

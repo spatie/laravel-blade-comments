@@ -68,6 +68,6 @@ class BladeComponentCommenter
         $parts[] = $id;
         $action = $part === 'start' ? 'Start' : 'End';
 
-        return "<!-- $action component '" . implode("' '", $parts) . "' -->";
+        return "<!-- $action component: '" . implode("' '", $parts) . "' -->";
     }
 }

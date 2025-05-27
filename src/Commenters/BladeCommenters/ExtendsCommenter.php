@@ -7,13 +7,7 @@ use Stillat\BladeParser\Nodes\DirectiveNode;
 
 class ExtendsCommenter
 {
-    protected static array $supportedDirectives = [
-        'extends',
-    ];
-
-    protected string $startComment = '<!-- View start: :name -->';
-
-    protected string $endComment = '<!-- View end: :name -->';
+    protected string $startComment = '<!-- Start extends: :name -->';
 
     public function __construct(protected array $excludes = [])
     {
@@ -23,34 +17,26 @@ class ExtendsCommenter
     public function parse(string $bladeContent): string
     {
         $document = Document::fromText($bladeContent);
+        $directive = 'extends';
 
-        foreach (self::$supportedDirectives as $directiveName) {
-            if (! $document->hasDirective($directiveName)) {
-                continue;
-            }
-
-            $document->findDirectivesByName($directiveName)
-                ->filter(fn (DirectiveNode $node) => ! $this->isExcludedByConfig($this->getNodeName($node)))
-                ->transform(function (DirectiveNode $node) {
-                    $node->sourceContent = $this->addComments($node);
-
-                    return $node;
-                });
+        if (! $document->hasDirective($directive)) {
+            return $bladeContent;
         }
+
+        $document->findDirectivesByName($directive)
+            ->filter(fn (DirectiveNode $node) => ! $this->isExcludedByConfig($this->getNodeName($node)))
+            ->transform(function (DirectiveNode $node) {
+                $node->sourceContent = $this->htmlComment($node).$node->toString();
+
+                return $node;
+            });
 
         return $document->toString();
     }
 
-    protected function htmlComment(DirectiveNode $node, string $part): string
+    protected function htmlComment(DirectiveNode $node): string
     {
-        return strtr(($part === 'start' ? $this->startComment : $this->endComment), [
-            ':name' => $this->getNodeName($node),
-        ]);
-    }
-
-    protected function addComments(DirectiveNode $node): string
-    {
-        return $this->htmlComment($node, 'start').$node->toString();
+        return strtr($this->startComment, [':name' => $this->getNodeName($node) ]);
     }
 
     /**

@@ -3,6 +3,12 @@
 return [
     'enable' => env('APP_DEBUG'),
 
+    /**
+     * Add a comment at the beginning and end of every blade
+     * containing the relative path to the blade file.
+     */
+    'blade_paths' => true,
+
     /*
      * These classes provide regex for adding comments for
      * various Blade directives.
