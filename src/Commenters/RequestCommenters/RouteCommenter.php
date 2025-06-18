@@ -25,7 +25,7 @@ class RouteCommenter implements RequestCommenter
             $comment .= "({$routeAction['as']}) ";
         }
 
-        $comment .= '-->';
+        $comment .= "-->\n";
 
         return $comment;
     }

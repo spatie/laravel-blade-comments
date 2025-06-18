@@ -13,7 +13,7 @@ it('should filter excluded sections', function () {
     $renderedView = view('extends.page')->render();
 
     assertMatchesHtmlSnapshot($renderedView);
-    expect($renderedView)->not->toContain('<!-- Start section: excluded-section -->');
+    expect($renderedView)->not->toContain("<!-- Start section: 'excluded-section' -->");
 });
 
 it('will add comments for extends with invalid excluded sections', function () {
@@ -21,5 +21,5 @@ it('will add comments for extends with invalid excluded sections', function () {
     $renderedView = view('extends.page')->render();
 
     assertMatchesHtmlSnapshot($renderedView);
-    expect($renderedView)->toContain('<!-- Start section: excluded-section -->');
+    expect($renderedView)->toContain("<!-- Start section: 'excluded-section' -->");
 });

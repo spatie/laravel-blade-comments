@@ -1,0 +1,34 @@
+<!-- Start blade view: /app/tests/TestSupport/views/anonymous-blade-component/page.blade.php --><html><body>
+<p>This is the test of the anonymous component
+
+<!-- Start component: 'anonymous-blade-component.anonymous' 'anonymous-component' --><!-- Start blade view: /app/tests/TestSupport/views/anonymous-blade-component/anonymous.blade.php -->
+</p>
+<div>
+    This is the anonymous component
+</div>
+
+<!-- End blade view: /app/tests/TestSupport/views/anonymous-blade-component/anonymous.blade.php -->
+<!-- End component: 'anonymous-blade-component.anonymous' 'anonymous-component' -->
+
+Including it again
+
+<!-- Start component: 'anonymous-blade-component.anonymous' 'anonymous-component' --><!-- Start blade view: /app/tests/TestSupport/views/anonymous-blade-component/anonymous.blade.php -->
+<div>
+    This is the anonymous component
+</div>
+
+<!-- End blade view: /app/tests/TestSupport/views/anonymous-blade-component/anonymous.blade.php -->
+<!-- End component: 'anonymous-blade-component.anonymous' 'anonymous-component' -->
+
+Non-anonymous components should be handled correctly as well
+
+<!-- Start component: 'Spatie\BladeComments\Tests\TestSupport\BladeComponents\TestBladeComponent' 'test-component' --><!-- Start blade view: /app/tests/TestSupport/views/bladeComponent/component.blade.php -->
+<div>
+    This is the Blade component
+</div>
+
+<!-- End blade view: /app/tests/TestSupport/views/bladeComponent/component.blade.php -->
+<!-- End component: 'Spatie\BladeComments\Tests\TestSupport\BladeComponents\TestBladeComponent' 'test-component' -->
+
+<!-- End blade view: /app/tests/TestSupport/views/anonymous-blade-component/page.blade.php -->
+</body></html>
