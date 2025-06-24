@@ -12,7 +12,7 @@ class BladeCommentsPrecompiler
 
         if (config('blade-comments.blade_paths')) {
             $compiler = app('blade.compiler');
-            $path = rescue(fn () => Str::after($compiler->getPath(), base_path(DIRECTORY_SEPARATOR)), null);
+            $path = rescue(fn () => Str::after($compiler->getPath(), base_path('/')), null);
         }
 
         if ($path) {
