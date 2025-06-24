@@ -36,7 +36,7 @@ class ExtendsCommenter
 
     protected function htmlComment(DirectiveNode $node): string
     {
-        return strtr($this->startComment, [':name' => $this->getNodeName($node) ]);
+        return strtr($this->startComment, [':name' => $this->getNodeName($node)]);
     }
 
     /**
