@@ -3,6 +3,7 @@
 namespace Spatie\BladeComments;
 
 use Illuminate\Support\Str;
+use Symfony\Component\Filesystem\Path;
 
 class BladeCommentsPrecompiler
 {
@@ -12,11 +13,11 @@ class BladeCommentsPrecompiler
 
         if (config('blade-comments.blade_paths')) {
             $compiler = app('blade.compiler');
-            $path = rescue(fn () => Str::after($compiler->getPath(), base_path('/')), null);
+            $path = rescue(fn () => Str::remove('../', Path::makeRelative($compiler->getPath(), base_path('/'))), null);
         }
 
         if ($path) {
-            $bladeContent = "\n<!-- Start blade view: $path -->\n".$bladeContent;
+            $bladeContent = "\n<!-- Start blade view: '$path' -->\n".$bladeContent;
         }
 
         foreach (self::commenters() as $commenter) {
@@ -24,7 +25,7 @@ class BladeCommentsPrecompiler
         }
 
         if ($path) {
-            return $bladeContent."\n<!-- End blade view: $path -->\n";
+            return $bladeContent."\n<!-- End blade view: '$path' -->\n";
         }
 
         return $bladeContent;
