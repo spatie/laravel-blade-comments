@@ -43,17 +43,20 @@ This is the content of the published config file:
 return [
     'enable' => env('APP_DEBUG'),
 
+    /**
+     * Add a comment at the beginning and end of every blade
+     * containing the relative path to the blade file.
+     */
+    'blade_paths' => true,
+
     /*
      * These classes provide regex for adding comments for
      * various Blade directives.
      */
     'blade_commenters' => [
         Spatie\BladeComments\Commenters\BladeCommenters\BladeComponentCommenter::class,
-        Spatie\BladeComments\Commenters\BladeCommenters\AnonymousBladeComponentCommenter::class,
         Spatie\BladeComments\Commenters\BladeCommenters\ExtendsCommenter::class,
         Spatie\BladeComments\Commenters\BladeCommenters\IncludeCommenter::class,
-        Spatie\BladeComments\Commenters\BladeCommenters\IncludeIfCommenter::class,
-        Spatie\BladeComments\Commenters\BladeCommenters\IncludeWhenCommenter::class,
         Spatie\BladeComments\Commenters\BladeCommenters\LivewireComponentCommenter::class,
         Spatie\BladeComments\Commenters\BladeCommenters\LivewireDirectiveCommenter::class,
         Spatie\BladeComments\Commenters\BladeCommenters\SectionCommenter::class,
@@ -77,10 +80,10 @@ return [
 
     /*
      * This class is responsible for calling the registered Blade commenters.
-     * In most case, you don't need to modify this class.
+     * In most cases, you don't need to modify this class.
      */
     'precompiler' => Spatie\BladeComments\BladeCommentsPrecompiler::class,
-    
+
     'excludes' => [
         /**
          * Add includes you don't want to be affected by the package here.
@@ -91,7 +94,7 @@ return [
         'includes' => [
 
         ],
-        
+
         /**
          * Add sections you don't want to be affected by the package here.
          * These sections will not have HTML comments added around @yield directives
@@ -102,7 +105,7 @@ return [
         'sections' => [
 
         ],
-    ]
+    ],
 ];
 ```
 

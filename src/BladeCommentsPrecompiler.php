@@ -2,37 +2,35 @@
 
 namespace Spatie\BladeComments;
 
-use Spatie\BladeComments\Commenters\BladeCommenters\BladeCommenter;
-use Spatie\BladeComments\Commenters\BladeCommenters\BladeCommenterWithCallback;
+use Illuminate\Support\Str;
+use Symfony\Component\Filesystem\Path;
 
 class BladeCommentsPrecompiler
 {
     public static function execute(string $bladeContent): string
     {
+        $path = null;
+
+        if (config('blade-comments.blade_paths')) {
+            $compiler = app('blade.compiler');
+            $path = rescue(fn () => Str::remove('../', Path::makeRelative($compiler->getPath(), base_path('/'))), null);
+        }
+
+        if ($path) {
+            $bladeContent = "\n<!-- Start blade view: '$path' -->\n".$bladeContent;
+        }
+
         foreach (self::commenters() as $commenter) {
-            if ($commenter instanceof BladeCommenterWithCallback) {
-                $bladeContent = preg_replace_callback(
-                    $commenter->pattern(),
-                    fn (array $matches) => $commenter->replacementCallback($matches),
-                    $bladeContent,
-                );
+            $bladeContent = $commenter->parse($bladeContent);
+        }
 
-                continue;
-            }
-
-            $bladeContent = preg_replace(
-                $commenter->pattern(),
-                $commenter->replacement(),
-                $bladeContent,
-            );
+        if ($path) {
+            return $bladeContent."\n<!-- End blade view: '$path' -->\n";
         }
 
         return $bladeContent;
     }
 
-    /**
-     * @return array<BladeCommenter>
-     */
     protected static function commenters(): array
     {
         return collect(config('blade-comments.blade_commenters'))

@@ -2,27 +2,83 @@
 
 namespace Spatie\BladeComments\Commenters\BladeCommenters;
 
-class SectionCommenter implements BladeCommenterWithCallback
+use Stillat\BladeParser\Document\Document;
+use Stillat\BladeParser\Nodes\DirectiveNode;
+use Stillat\BladeParser\Nodes\LiteralNode;
+
+class SectionCommenter
 {
-    public function pattern(): string
+    protected static array $supportedDirectives = [
+        'yield',
+    ];
+
+    protected string $startComment = '<!-- Start section: :name -->';
+
+    protected string $endComment = '<!-- End section: :name -->';
+
+    public function __construct(protected array $excludes = [])
     {
-        $excludes = config('blade-comments.excludes.sections', []);
-
-        if (count($excludes)) {
-            $excludesRegex = '(?!\s*[\'"](?:'.implode('|', $excludes).')[\'"])';
-            $regex = "/@yield(\({$excludesRegex}(?:[^)(]+|(?1))*+\))(?![^<>]*<\/title>)/";
-        } else {
-            $regex = "/@yield(\((?:[^)(]+|(?1))*+\))(?![^<>]*<\/title>)/";
-        }
-
-        return $regex;
+        $this->excludes = config('blade-comments.excludes.sections', []);
     }
 
-    public function replacementCallback(array $matches): string
+    public function parse(string $bladeContent): string
     {
-        preg_match('/@yield\(\'([^\']+)\'/', $matches[0], $parameters);
-        $name = $parameters[1];
+        $document = Document::fromText($bladeContent);
 
-        return "<!-- Start section: $name -->{$matches[0]}<!-- End section: $name -->";
+        foreach (self::$supportedDirectives as $directiveName) {
+            if (! $document->hasDirective($directiveName)) {
+                continue;
+            }
+
+            $document->findDirectivesByName($directiveName)
+                ->filter(fn (DirectiveNode $node) => ! $this->isExcludedByConfig($this->getNodeName($node)))
+                ->transform(function (DirectiveNode $node) {
+                    $node->sourceContent = $this->addComments($node);
+
+                    return $node;
+                });
+        }
+
+        return $document->toString();
+    }
+
+    protected function htmlComment(DirectiveNode $node, string $part): string
+    {
+        return strtr(($part === 'start' ? $this->startComment : $this->endComment), [
+            ':name' => $this->getNodeName($node),
+        ]);
+    }
+
+    protected function addComments(DirectiveNode $node): string
+    {
+        // Do not add comments if it is part of the <title> tag
+        if ($node->getNextNode() instanceof LiteralNode
+            && preg_match('/^\s*<\/title>/', $node->getNextNode())
+        ) {
+            return $node->toString();
+        }
+
+        return $this->htmlComment($node, 'start').$node->toString().$this->htmlComment($node, 'end');
+    }
+
+    /**
+     * If the directive is: @yield('example', [])
+     *
+     * This will return 'example'
+     */
+    protected function getNodeName(DirectiveNode $node): string
+    {
+        return $node->arguments->getArgValues()->get(0);
+    }
+
+    protected function isExcludedByConfig(string $name): bool
+    {
+        if (empty($this->excludes)) {
+            return false;
+        }
+
+        $nameWithoutQuotes = str($name)->trim('\'"')->toString();
+
+        return collect($this->excludes)->contains(fn ($exclude) => $nameWithoutQuotes === $exclude);
     }
 }
