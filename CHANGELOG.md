@@ -2,6 +2,16 @@
 
 All notable changes to `laravel-blade-comments` will be documented in this file.
 
+## 2.0 - 2025-06-27
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.3.0 to 2.4.0 by @dependabot in https://github.com/spatie/laravel-blade-comments/pull/38
+* Use Blade Parser (AST) Instead of Regular Expressions by @wvdongen in https://github.com/spatie/laravel-blade-comments/pull/41
+* Bump stefanzweifel/git-auto-commit-action from 5 to 6 by @dependabot in https://github.com/spatie/laravel-blade-comments/pull/40
+
+**Full Changelog**: https://github.com/spatie/laravel-blade-comments/compare/1.4.0...2.0
+
 ## 1.4.0 - 2025-05-09
 
 ### What's Changed
