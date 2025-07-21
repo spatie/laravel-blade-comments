@@ -50,8 +50,11 @@ return [
     'blade_paths' => true,
 
     /*
-     * These classes provide regex for adding comments for
-     * various Blade directives.
+     * These classes provide regex for adding comments for various
+     * Blade directives. If not using Livewire, comment out:
+     *
+     *   - Spatie\BladeComments\Commenters\BladeCommenters\LivewireComponentCommenter::class,
+     *   - Spatie\BladeComments\Commenters\BladeCommenters\LivewireDirectiveCommenter::class,
      */
     'blade_commenters' => [
         Spatie\BladeComments\Commenters\BladeCommenters\BladeComponentCommenter::class,
