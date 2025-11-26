@@ -2,6 +2,21 @@
 
 All notable changes to `laravel-blade-comments` will be documented in this file.
 
+## 2.0.1 - 2025-11-26
+
+### What's Changed
+
+* Bump aglipanci/laravel-pint-action from 2.5 to 2.6 by @dependabot[bot] in https://github.com/spatie/laravel-blade-comments/pull/43
+* Update issue template by @AlexVanderbist in https://github.com/spatie/laravel-blade-comments/pull/45
+* Added Symfony 8 support to all symfony/* packages. by @thecaliskan in https://github.com/spatie/laravel-blade-comments/pull/48
+
+### New Contributors
+
+* @AlexVanderbist made their first contribution in https://github.com/spatie/laravel-blade-comments/pull/45
+* @thecaliskan made their first contribution in https://github.com/spatie/laravel-blade-comments/pull/48
+
+**Full Changelog**: https://github.com/spatie/laravel-blade-comments/compare/2.0...2.0.1
+
 ## 2.0 - 2025-06-27
 
 ### What's Changed
