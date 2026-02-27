@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-blade-comments` will be documented in this file.
 
+## 2.0.2 - 2026-02-27
+
+Add support for Livewire 4 and Laravel 13
+
 ## 2.0.1 - 2025-11-26
 
 ### What's Changed
