@@ -2,13 +2,14 @@
 
 namespace Spatie\BladeComments\Commenters\BladeCommenters;
 
-use Livewire\Mechanisms\ComponentRegistry;
 use Stillat\BladeParser\Document\Document;
 use Stillat\BladeParser\Document\DocumentOptions;
 use Stillat\BladeParser\Nodes\DirectiveNode;
 
 class LivewireDirectiveCommenter
 {
+    public function __construct(protected LivewireClassResolver $resolver) {}
+
     public function parse(string $bladeContent): string
     {
         // Add custom directive
@@ -19,15 +20,11 @@ class LivewireDirectiveCommenter
             return $bladeContent;
         }
 
-        // Get the Livewire component registry to obtain the component class names
-        $registry = app(ComponentRegistry::class);
-
         $document
             ->getDirectives()
-            ->transform(function (DirectiveNode $node) use ($registry) {
-
+            ->transform(function (DirectiveNode $node) {
                 $name = str($node->arguments->getArgValues()->get(0))->trim('\'"')->toString();
-                $class = $registry->getClass($name);
+                $class = $this->resolver->getClass($name);
 
                 $start = "<!-- Start Livewire component: '{$class}' '{$name}' -->";
                 $end = "<!-- End Livewire component: '{$class}' '{$name}' -->";

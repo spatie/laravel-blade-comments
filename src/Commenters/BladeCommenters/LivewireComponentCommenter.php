@@ -2,12 +2,13 @@
 
 namespace Spatie\BladeComments\Commenters\BladeCommenters;
 
-use Livewire\Mechanisms\ComponentRegistry;
 use Stillat\BladeParser\Document\Document;
 use Stillat\BladeParser\Nodes\Components\ComponentNode;
 
 class LivewireComponentCommenter
 {
+    public function __construct(protected LivewireClassResolver $resolver) {}
+
     public function parse(string $bladeContent): string
     {
         $document = Document::fromText($bladeContent, null, ['livewire']);
@@ -16,15 +17,12 @@ class LivewireComponentCommenter
             return $bladeContent;
         }
 
-        $registry = app(ComponentRegistry::class);
-
         $document
             ->getComponents()
             ->filter(fn (ComponentNode $node) => $node->componentPrefix == 'livewire')
-            ->transform(function (ComponentNode $node) use ($registry) {
-
+            ->transform(function (ComponentNode $node) {
                 $name = $node->getName();
-                $class = $registry->getClass($name);
+                $class = $this->resolver->getClass($name);
 
                 $start = "<!-- Start Livewire component: '{$class}' '{$name}' -->";
                 $end = "<!-- End Livewire component: '{$class}' '{$name}' -->";
