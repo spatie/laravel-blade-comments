@@ -1,5 +1,16 @@
 <?php
 
+use Spatie\BladeComments\BladeCommentsPrecompiler;
+use Spatie\BladeComments\Commenters\BladeCommenters\BladeComponentCommenter;
+use Spatie\BladeComments\Commenters\BladeCommenters\ExtendsCommenter;
+use Spatie\BladeComments\Commenters\BladeCommenters\IncludeCommenter;
+use Spatie\BladeComments\Commenters\BladeCommenters\LivewireComponentCommenter;
+use Spatie\BladeComments\Commenters\BladeCommenters\LivewireDirectiveCommenter;
+use Spatie\BladeComments\Commenters\BladeCommenters\SectionCommenter;
+use Spatie\BladeComments\Commenters\RequestCommenters\RouteCommenter;
+use Spatie\BladeComments\Commenters\RequestCommenters\ViewCommenter;
+use Spatie\BladeComments\Http\Middleware\AddRequestComments;
+
 return [
     'enable' => env('APP_DEBUG'),
 
@@ -14,20 +25,20 @@ return [
      * various Blade directives.
      */
     'blade_commenters' => [
-        Spatie\BladeComments\Commenters\BladeCommenters\BladeComponentCommenter::class,
-        Spatie\BladeComments\Commenters\BladeCommenters\ExtendsCommenter::class,
-        Spatie\BladeComments\Commenters\BladeCommenters\IncludeCommenter::class,
-        Spatie\BladeComments\Commenters\BladeCommenters\LivewireComponentCommenter::class,
-        Spatie\BladeComments\Commenters\BladeCommenters\LivewireDirectiveCommenter::class,
-        Spatie\BladeComments\Commenters\BladeCommenters\SectionCommenter::class,
+        BladeComponentCommenter::class,
+        ExtendsCommenter::class,
+        IncludeCommenter::class,
+        LivewireComponentCommenter::class,
+        LivewireDirectiveCommenter::class,
+        SectionCommenter::class,
     ],
 
     /*
      * These classes will add comments at the top of the response.
      */
     'request_commenters' => [
-        Spatie\BladeComments\Commenters\RequestCommenters\ViewCommenter::class,
-        Spatie\BladeComments\Commenters\RequestCommenters\RouteCommenter::class,
+        ViewCommenter::class,
+        RouteCommenter::class,
     ],
 
     /*
@@ -35,14 +46,14 @@ return [
      * to the start of a rendered HTML page.
      */
     'middleware' => [
-        Spatie\BladeComments\Http\Middleware\AddRequestComments::class,
+        AddRequestComments::class,
     ],
 
     /*
      * This class is responsible for calling the registered Blade commenters.
      * In most cases, you don't need to modify this class.
      */
-    'precompiler' => Spatie\BladeComments\BladeCommentsPrecompiler::class,
+    'precompiler' => BladeCommentsPrecompiler::class,
 
     'excludes' => [
         /**

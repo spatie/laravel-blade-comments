@@ -2,7 +2,9 @@
 
 namespace Tests\Middleware;
 
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
+use Spatie\BladeComments\Commenters\RequestCommenters\ViewCommenter;
 use Spatie\BladeComments\Http\Middleware\AddRequestComments;
 
 describe('Comment Generation', function () {
@@ -73,7 +75,7 @@ describe('Error Handling', function () {
      */
     it('gracefully handles responses without valid view objects', function () {
         Route::get('custom-response-route', function () {
-            $response = new \Illuminate\Http\Response('Custom HTML content');
+            $response = new Response('Custom HTML content');
             $response->original = new \stdClass; // Object without name() method
             $response->header('Content-Type', 'text/html');
 
@@ -109,7 +111,7 @@ describe('Comment Configuration', function () {
         config([
             'blade-comments.enable' => true,
             'blade-comments.request_commenters' => [
-                \Spatie\BladeComments\Commenters\RequestCommenters\ViewCommenter::class,
+                ViewCommenter::class,
             ],
         ]);
 
