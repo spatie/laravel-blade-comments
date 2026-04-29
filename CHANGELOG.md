@@ -2,6 +2,16 @@
 
 All notable changes to `laravel-blade-comments` will be documented in this file.
 
+## 2.0.3 - 2026-04-29
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.5.0 to 3.0.0 by @dependabot[bot] in https://github.com/spatie/laravel-blade-comments/pull/54
+* Bump dependabot/fetch-metadata from 3.0.0 to 3.1.0 by @dependabot[bot] in https://github.com/spatie/laravel-blade-comments/pull/55
+* Support Livewire v4 by abstracting component class resolution by @freekmurze in https://github.com/spatie/laravel-blade-comments/pull/56
+
+**Full Changelog**: https://github.com/spatie/laravel-blade-comments/compare/2.0.2...2.0.3
+
 ## 2.0.2 - 2026-02-27
 
 Add support for Livewire 4 and Laravel 13
