@@ -17,8 +17,6 @@ class TestCase extends Orchestra
     {
         parent::setUp();
 
-        ray()->newScreen($this->name());
-
         $this->artisan('view:clear');
     }
 
