@@ -28,6 +28,9 @@ jobs:
         exclude:
           - laravel: 13.*
             php: 8.2
+          # Pest 5 requires Laravel 13; Pest 4's ParaTest cannot resolve on PHP 8.6.
+          - laravel: 12.*
+            php: 8.6
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
@@ -51,8 +54,12 @@ jobs:
           echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
       - name: Require Pest 4 for Laravel 13 or PHP 8.5 and newer
-        if: matrix.laravel == '13.*' || matrix.php >= 8.5
+        if: matrix.php < 8.6 && (matrix.laravel == '13.*' || matrix.php >= 8.5)
         run: composer require "pestphp/pest:^4.0" "pestphp/pest-plugin-laravel:^4.0" "pestphp/pest-plugin-arch:^4.0" --dev --no-interaction --no-update
+
+      - name: Require Pest 5 for PHP 8.6
+        if: matrix.php >= 8.6
+        run: composer require "pestphp/pest:^5.0" "pestphp/pest-plugin-laravel:^5.0" "pestphp/pest-plugin-arch:^5.0" --dev --no-interaction --no-update
 
       - name: Install dependencies
         run: |
