@@ -13,9 +13,10 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
-        os: [ubuntu-latest]
+        # HTML snapshots rely on libxml's pre-2.14 implied paragraph handling.
+        os: [ubuntu-24.04]
         php: [8.6, 8.5, 8.4, 8.3, 8.2]
         laravel: ['12.*', '13.*']
         stability: [prefer-stable]
@@ -40,6 +41,9 @@ jobs:
           php-version: ${{ matrix.php }}
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
           coverage: none
+
+      - name: Report runtime versions
+        run: php -r 'echo "PHP ", PHP_VERSION, " / libxml ", LIBXML_DOTTED_VERSION, PHP_EOL;'
 
       - name: Setup problem matchers
         run: |
