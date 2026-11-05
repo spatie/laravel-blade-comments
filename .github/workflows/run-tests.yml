@@ -13,17 +13,14 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
-        os: [ubuntu-latest]
-        php: [8.5, 8.4, 8.3, 8.2]
-        laravel: ['10.*', '11.*', '12.*', '13.*']
+        # HTML snapshots rely on libxml's pre-2.14 implied paragraph handling.
+        os: [ubuntu-24.04]
+        php: [8.6, 8.5, 8.4, 8.3, 8.2]
+        laravel: ['12.*', '13.*']
         stability: [prefer-stable]
         include:
-          - laravel: 10.*
-            testbench: 8.*
-          - laravel: 11.*
-            testbench: 9.*
           - laravel: 12.*
             testbench: 10.*
           - laravel: 13.*
@@ -31,8 +28,9 @@ jobs:
         exclude:
           - laravel: 13.*
             php: 8.2
-          - laravel: 10.*
-            php: 8.5
+          # Pest 5 requires Laravel 13; Pest 4's ParaTest cannot resolve on PHP 8.6.
+          - laravel: 12.*
+            php: 8.6
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
@@ -47,14 +45,21 @@ jobs:
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
           coverage: none
 
+      - name: Report runtime versions
+        run: php -r 'echo "PHP ", PHP_VERSION, " / libxml ", LIBXML_DOTTED_VERSION, PHP_EOL;'
+
       - name: Setup problem matchers
         run: |
           echo "::add-matcher::${{ runner.tool_cache }}/php.json"
           echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
-      - name: Require Pest 4 for Laravel 13
-        if: matrix.laravel == '13.*'
+      - name: Require Pest 4 for Laravel 13 or PHP 8.5 and newer
+        if: matrix.php < 8.6 && (matrix.laravel == '13.*' || matrix.php >= 8.5)
         run: composer require "pestphp/pest:^4.0" "pestphp/pest-plugin-laravel:^4.0" "pestphp/pest-plugin-arch:^4.0" --dev --no-interaction --no-update
+
+      - name: Require Pest 5 for PHP 8.6
+        if: matrix.php >= 8.6
+        run: composer require "pestphp/pest:^5.0" "pestphp/pest-plugin-laravel:^5.0" "pestphp/pest-plugin-arch:^5.0" --dev --no-interaction --no-update
 
       - name: Install dependencies
         run: |
